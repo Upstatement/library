@@ -10,7 +10,9 @@
 
     <div id="category-page" class="g-body">
       <div class="g-main-content">
-        ABOUT
+        <% if (locals.content) { %>
+          <%- locals.content %>
+        <% } %>
       </div>
       <script> seeMoreButton() </script>
       <%- include('../partials/footer', { pageType: 'category_index' }) %>

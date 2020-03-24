@@ -3,6 +3,8 @@
 const search = require('../search')
 
 const router = require('express-promise-router')()
+const {fetchDoc} = require('../docs')
+const {parseUrl} = require('../urlParser')
 
 const {getTree, getFilenames, getMeta, getTagged} = require('../list')
 const {getTemplates, sortDocs, stringTemplate, getConfig} = require('../utils')
@@ -47,12 +49,103 @@ async function handlePage(req, res) {
   if (page === 'categories' || page === 'index' || page === 'about') {
     const tree = await getTree()
     const categories = buildDisplayCategories(tree)
+
+    if (page === 'index') {
+      const {meta, data} = await parseUrl('/homepage')
+      const {id} = meta
+      const {duplicates} = data
+
+      const baseRenderData = Object.assign({}, {
+        url: req.path,
+        title: meta.prettyName,
+        lastUpdatedBy: (meta.lastModifyingUser || {}).displayName,
+        modifiedAt: meta.modifiedTime,
+        createdAt: meta.createdTime,
+        editLink: meta.mimeType === 'text/html' ? meta.folder.webViewLink : meta.webViewLink,
+        id,
+        template: stringTemplate,
+        duplicates
+      })
+
+      const content = await getPageContent(page, tree, req)
+
+      res.render(template, Object.assign({}, categories, baseRenderData, {
+        content: content
+      }), (err, html) => {
+        if (err) throw err
+        res.end(html)
+      })
+    }
+
+    if (page === 'about') {
+      const {meta, data} = await parseUrl(req.path)
+      const {id} = meta
+      const {duplicates} = data
+
+      const baseRenderData = Object.assign({}, {
+        url: req.path,
+        title: meta.prettyName,
+        lastUpdatedBy: (meta.lastModifyingUser || {}).displayName,
+        modifiedAt: meta.modifiedTime,
+        createdAt: meta.createdTime,
+        editLink: meta.mimeType === 'text/html' ? meta.folder.webViewLink : meta.webViewLink,
+        id,
+        template: stringTemplate,
+        duplicates
+      })
+
+      const content = await getPageContent(page, tree, req)
+
+      res.render(template, Object.assign({}, categories, baseRenderData, {
+        content: content
+      }), (err, html) => {
+        if (err) throw err
+        res.end(html)
+      })
+    }
+
     res.render(template, {...categories, template: stringTemplate})
     return
   }
 
   res.render(template, {template: stringTemplate})
 }
+
+async function getPageContent(page, tree, req) {
+  const categories = Object.keys(tree.children).map((key) => {
+    const data = tree.children[key]
+    data.path = `/${key}` // for now
+    return data
+  })
+
+  const all = categories
+  .map((c) => Object.assign({}, c, getMeta(c.id)))
+  .filter(({resourceType, tags, isTrashCan}) => resourceType !== 'folder' && !tags.includes('hidden') && !isTrashCan)
+  .sort(sortDocs)
+  .map((category) => {
+    category.children = Object.values(category.children || {}).map(({id}) => {
+      const {prettyName: name, path: url, resourceType, sort, tags} = getMeta(id)
+      return {name, resourceType, url, sort, tags}
+    })
+      .filter(({tags}) => !tags.includes('hidden'))
+      .sort(sortDocs)
+    return category
+  })
+
+  if (page === 'index') {
+    page = 'homepage'
+  }
+
+  const thisPage = all.filter((filterpage) => filterpage.path === `/${page}`)
+
+  if (thisPage.length) {
+    const pageToUse = thisPage[0]
+    const {html} = await fetchDoc(pageToUse.id, pageToUse.resourceType, req)
+    return html
+  }
+
+  return ''
+};
 
 function buildDisplayCategories(tree) {
   const categories = Object.keys(tree.children).map((key) => {

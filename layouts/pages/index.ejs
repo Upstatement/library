@@ -17,6 +17,10 @@
         </div>
         <%- include('../partials/search', {style: 'homepage', focus: 'autofocus', msgOnFocus: template('search.placeholder')}) %>
 
+        <% if (locals.content) { %>
+          <%- locals.content %>
+        <% } %>
+
         <div class="featured-cat">
           <% if (modules.length) { 
             modules.forEach((module, i, all) => {

@@ -1,5 +1,9 @@
-- Removed UserHistory because we do not have users.
+## Newest First
+
+### 24 March
+- Added ability for Index and About page to pull content from Google Docs.
+- Removed UserTools as we do not have users.
+- Added new About page / route (/about) with its own layout.
 - Removed Typeahead because our feeling is that t makes it
   unclear that there is more to search than what is present.
-- Added new About page / route (/about) with its own layout.
-- Removed UserTools as we do not have users.
+- Removed UserHistory because we do not have users.
