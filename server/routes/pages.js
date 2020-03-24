@@ -44,7 +44,7 @@ async function handlePage(req, res) {
 
   // TODO: repurpose old getFolders/folder view from move-file as tree view for files
 
-  if (page === 'categories' || page === 'index') {
+  if (page === 'categories' || page === 'index' || page === 'about') {
     const tree = await getTree()
     const categories = buildDisplayCategories(tree)
     res.render(template, {...categories, template: stringTemplate})
