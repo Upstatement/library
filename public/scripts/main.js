@@ -1,7 +1,7 @@
 $(document).ready(function() {
   var $window = $(window)
   var $document = $(document)
-  var $html = $('html')
+  // var $html = $('html')
 
   $("pre").html(function (index, html) {
     return html.split(/\r?\n/).map(function(line) {
@@ -35,94 +35,94 @@ $(document).ready(function() {
     }
   }
 
-  function populateUserHistoryData() {
-    $.ajax({
-      method: 'GET',
-      url: '/reading-history/docs.json',
-      data: {
-        limit: 4
-      },
-      json: true
-    }).always(function(data) {
-      var recentlyViewed = data.recentlyViewed;
-      var mostViewed = data.mostViewed;
+  // function populateUserHistoryData() {
+  //   $.ajax({
+  //     method: 'GET',
+  //     url: '/reading-history/docs.json',
+  //     data: {
+  //       limit: 4
+  //     },
+  //     json: true
+  //   }).always(function(data) {
+  //     var recentlyViewed = data.recentlyViewed;
+  //     var mostViewed = data.mostViewed;
 
-      addElements(recentlyViewed, {
-        name: 'Recently Viewed',
-        emptyText: "You've viewed no stories!"
-      });
+  //     addElements(recentlyViewed, {
+  //       name: 'Recently Viewed',
+  //       emptyText: "You've viewed no stories!"
+  //     });
 
-      addElements(mostViewed, {
-        name: 'Most Viewed'
-      });
+  //     addElements(mostViewed, {
+  //       name: 'Most Viewed'
+  //     });
 
-      $('#me .popup .fa-spinner').remove();
-    })
-  }
+  //     $('#me .popup .fa-spinner').remove();
+  //   })
+  // }
 
-  $html.one('mouseenter', '.user-tools', populateUserHistoryData);
+  // $html.one('mouseenter', '.user-tools', populateUserHistoryData);
 
-  function addElements(data, elementAttributes) {
-    var $target = $('#me .popup');
+  // function addElements(data, elementAttributes) {
+  //   var $target = $('#me .popup');
 
-    if (!data || data.length == 0) {
-      if (elementAttributes.emptyText) {
-        $target.append("<p>" + elementAttributes.emptyText + "</p>");
-      }
-      return;
-    }
+  //   if (!data || data.length == 0) {
+  //     if (elementAttributes.emptyText) {
+  //       $target.append("<p>" + elementAttributes.emptyText + "</p>");
+  //     }
+  //     return;
+  //   }
 
-    var items = data.map(function(el) {
-      var item = el.doc;
-      var folder = (item.folder || {}).prettyName || ''; // lets not try to show a folder if there isn't one
-      var path = item.path ? item.path : '#';
-      return [
-      '<li>',
-        '<a href="' + path + '">',
-          '<p class="docs-title">' + item.prettyName + '</p>',
-          '<p class="docs-attr">',
-            '<span class="docs-folder">' + folder + '</span>',
-            '<span class="timestamp">(' + el.lastViewed + ')</span>',
-          '</p>',
-         '</a>',
-      '</li>'
-      // use .join() to turn to html string
-      ].join('')
-    });
+  //   var items = data.map(function(el) {
+  //     var item = el.doc;
+  //     var folder = (item.folder || {}).prettyName || ''; // lets not try to show a folder if there isn't one
+  //     var path = item.path ? item.path : '#';
+  //     return [
+  //     '<li>',
+  //       '<a href="' + path + '">',
+  //         '<p class="docs-title">' + item.prettyName + '</p>',
+  //         '<p class="docs-attr">',
+  //           '<span class="docs-folder">' + folder + '</span>',
+  //           '<span class="timestamp">(' + el.lastViewed + ')</span>',
+  //         '</p>',
+  //        '</a>',
+  //     '</li>'
+  //     // use .join() to turn to html string
+  //     ].join('')
+  //   });
 
-    var className = elementAttributes.name.toLowerCase().replace(' ', '-') + '-content';
+  //   var className = elementAttributes.name.toLowerCase().replace(' ', '-') + '-content';
 
-    var fullSection = [
-      "<h3>" + elementAttributes.name + "</h3>",
-      "<ul class='" + className + "'>" + items.join('') + "</ul>"
-    ].join('');
+  //   var fullSection = [
+  //     "<h3>" + elementAttributes.name + "</h3>",
+  //     "<ul class='" + className + "'>" + items.join('') + "</ul>"
+  //   ].join('');
 
-     // perform all the DOM manipulation as a single operation
-    $target.append(fullSection);
-  }
+  //    // perform all the DOM manipulation as a single operation
+  //   $target.append(fullSection);
+  // }
 
-  function filenameMatcher(q, cb) {
-    const substrRegex = new RegExp(q, 'i')
-    const filenames = getFilenameStorage().filenames
-    cb(filenames.filter((str) => substrRegex.test(str)))
-  }
+  // function filenameMatcher(q, cb) {
+  //   const substrRegex = new RegExp(q, 'i')
+  //   const filenames = getFilenameStorage().filenames
+  //   cb(filenames.filter((str) => substrRegex.test(str)))
+  // }
 
-  var $searchBox = $('#search-box')
-  // setup typeahead
-  $searchBox.typeahead({
-    hilight: true
-  }, {
-    name: 'documents',
-    source: filenameMatcher
-  })
+  // var $searchBox = $('#search-box')
+  // // setup typeahead
+  // $searchBox.typeahead({
+  //   hilight: true
+  // }, {
+  //   name: 'documents',
+  //   source: filenameMatcher
+  // })
 
-  // when the typeahead selects a result, immediately submit the form
-  // and tell the backend it was an autocomplete so we can go there directly.
-  $searchBox.on('typeahead:select', function (event, selectedItem) {
-    var $form = $searchBox.closest('form')
-    $form.append('<input type="hidden" name="autocomplete" value="1"/>')
-    $form.submit()
-  })
+  // // when the typeahead selects a result, immediately submit the form
+  // // and tell the backend it was an autocomplete so we can go there directly.
+  // $searchBox.on('typeahead:select', function (event, selectedItem) {
+  //   var $form = $searchBox.closest('form')
+  //   $form.append('<input type="hidden" name="autocomplete" value="1"/>')
+  //   $form.submit()
+  // })
 })
 
 
