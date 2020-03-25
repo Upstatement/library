@@ -1,0 +1,603 @@
+// ---------------------------------------------------------------------------
+// Clearfix
+// ---------------------------------------------------------------------------
+
+@mixin clearfix {
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+@mixin unclearfix {
+  &::after {
+    display: initial;
+    clear: none;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Custom Number List
+// ---------------------------------------------------------------------------
+
+@mixin custom-number-list($name: counter, $character: ". ") {
+  counter-reset: $name;
+
+  li {
+    counter-increment: $name;
+
+    &:before {
+      content: counter($name) $character;
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Px to Em
+// ---------------------------------------------------------------------------
+
+$browser-context: 16;
+
+@function em($pixels, $context: $browser-context) {
+  @return #{$pixels/$context}em;
+}
+
+// ---------------------------------------------------------------------------
+// Content
+// ---------------------------------------------------------------------------
+
+@mixin content($content: "\0020") {
+  content: "#{$content}";
+}
+
+// ---------------------------------------------------------------------------
+// Pseudo
+// ---------------------------------------------------------------------------
+
+@mixin pseudo($coordinates: none) {
+  @include content;
+  display: block;
+  @if $coordinates != "none" {
+    @include absolute($coordinates);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Reset Input
+// ---------------------------------------------------------------------------
+
+@mixin reset-input {
+  @include font(inherit, inherit, inherit);
+  appearance: none;
+  background-color: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  color: inherit;
+
+  &:focus {
+    outline: 0;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Auto
+// ---------------------------------------------------------------------------
+
+@function auto($value) {
+  @if $value == "a" {
+    @return auto;
+  } @else {
+    @return $value;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Align left/right
+// ---------------------------------------------------------------------------
+
+@mixin align-left {
+  @include mq($md) {
+    @include margin(0.5em 20px 20px 0);
+    float: left;
+    width: 25%;
+  }
+}
+
+@mixin align-right {
+  @include mq($md) {
+    @include margin(0.5em 0 20px 20px);
+    float: right;
+    width: 25%;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Shorthander
+// ---------------------------------------------------------------------------
+
+@mixin shorthander($position, $value) {
+  $position-prefix: "";
+
+  @if $position == "margin" or $position == "padding" {
+    $position-prefix: $position + "-";
+  } @else if $position == "null" {
+    // do nothing
+  } @else {
+    position: $position;
+  }
+
+  @if length($value) ==
+    1 and
+    $value !=
+    "n" and
+    $value !=
+    "x" and
+    $value !=
+    "null"
+  {
+    #{$position-prefix}top: auto($value);
+    #{$position-prefix}right: auto($value);
+    #{$position-prefix}bottom: auto($value);
+    #{$position-prefix}left: auto($value);
+  }
+
+  @if length($value) == 2 {
+    $value-y: nth($value, 1);
+    $value-x: nth($value, 2);
+    @if $value-y != "n" and $value-y != "x" and $value-y != "null" {
+      #{$position-prefix}top: auto($value-y);
+      #{$position-prefix}bottom: auto($value-y);
+    }
+    @if $value-x != "n" and $value-x != "x" and $value-x != "null" {
+      #{$position-prefix}left: auto($value-x);
+      #{$position-prefix}right: auto($value-x);
+    }
+  }
+
+  @if length($value) == 3 {
+    $value-y-top: nth($value, 1);
+    $value-x: nth($value, 2);
+    $value-y-bottom: nth($value, 3);
+
+    @if $value-y-top != "n" and $value-y-top != "x" and $value-y-top != "null" {
+      #{$position-prefix}top: auto($value-y-top);
+    }
+    @if $value-x != "n" and $value-x != "x" and $value-x != "null" {
+      #{$position-prefix}right: auto($value-x);
+      #{$position-prefix}left: auto($value-x);
+    }
+    @if $value-y-bottom !=
+      "n" and
+      $value-y-bottom !=
+      "x" and
+      $value-y-bottom !=
+      "null"
+    {
+      #{$position-prefix}bottom: auto($value-y-bottom);
+    }
+  }
+
+  @if length($value) == 4 {
+    $value-top: nth($value, 1);
+    $value-right: nth($value, 2);
+    $value-bottom: nth($value, 3);
+    $value-left: nth($value, 4);
+
+    @if $value-top != "n" and $value-top != "x" and $value-top != "null" {
+      #{$position-prefix}top: auto($value-top);
+    }
+    @if $value-right != "n" and $value-right != "x" and $value-right != "null" {
+      #{$position-prefix}right: auto($value-right);
+    }
+    @if $value-bottom !=
+      "n" and
+      $value-bottom !=
+      "x" and
+      $value-bottom !=
+      "null"
+    {
+      #{$position-prefix}bottom: auto($value-bottom);
+    }
+    @if $value-left != "n" and $value-left != "x" and $value-left != "null" {
+      #{$position-prefix}left: auto($value-left);
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Position
+// ---------------------------------------------------------------------------
+
+@mixin absolute($value) {
+  @include shorthander(absolute, $value);
+}
+
+@mixin fixed($value) {
+  @include shorthander(fixed, $value);
+}
+
+@mixin relative($value) {
+  @include shorthander(relative, $value);
+}
+
+@mixin padding($value) {
+  @include shorthander(padding, $value);
+}
+
+@mixin margin($value) {
+  @include shorthander(margin, $value);
+}
+
+// ---------------------------------------------------------------------------
+// Size
+// ---------------------------------------------------------------------------
+
+@mixin size($width, $height: $width) {
+  width: $width;
+  height: $height;
+}
+
+// ---------------------------------------------------------------------------
+// Reset List
+// ---------------------------------------------------------------------------
+
+@mixin ul-null {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+// ---------------------------------------------------------------------------
+// Increment Delay
+// ---------------------------------------------------------------------------
+
+@mixin increment-delay(
+  $offset: 0.1s,
+  $count: 10,
+  $delay: 0,
+  $type: transition
+) {
+  @for $i from 1 through $count {
+    $time: ($i * $offset) + $delay;
+
+    &:nth-child(#{$i}) {
+      #{$type}-delay: $time;
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Font
+// ---------------------------------------------------------------------------
+
+@mixin font(
+  $font-family: false,
+  //sans, serif, etc.
+    $font-size: false,
+  $line-height: false,
+  $font-weight: false,
+  $font-style: false,
+  $text-transform: false,
+  $ls: false
+) {
+  // Set font-family
+  @if $font-family {
+    font-family: $font-family;
+  }
+
+  // Set font-size
+  @if $font-size {
+    font-size: $font-size;
+  }
+
+  // Set line-height
+  @if $line-height {
+    line-height: $line-height;
+  }
+
+  // Set font-weight
+  @if $font-weight {
+    font-weight: $font-weight;
+  }
+
+  // Set font-style
+  @if $font-style {
+    font-style: $font-style;
+  }
+
+  // Set text-transform
+  @if $text-transform {
+    text-transform: $text-transform;
+  }
+
+  // Set letter-spacing
+  @if $ls {
+    letter-spacing: $ls;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// IE fallback for CSS custom properties
+// ---------------------------------------------------------------------------
+
+@mixin set-property($property, $color, $fallback) {
+  #{$property}: $fallback;
+  #{$property}: $color;
+}
+
+// ---------------------------------------------------------------------------
+// Media Queries
+// ---------------------------------------------------------------------------
+
+@mixin mq($bp-1, $bp-2: null) {
+  @if $bp-1 == "max" {
+    @media (max-width: $bp-2 - 1) {
+      @content;
+    }
+  } @else if $bp-2 == "max" {
+    @media (max-width: $bp-1 - 1) {
+      @content;
+    }
+  } @else if $bp-2 == null {
+    @media (min-width: $bp-1) {
+      @content;
+    }
+  } @else {
+    @media (min-width: $bp-1) and (max-width: $bp-2 - 1) {
+      @content;
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Visually Hide
+// ---------------------------------------------------------------------------
+
+@mixin hide($accessible: true) {
+  @if $accessible != true {
+    color: transparent;
+    font: 0/0 a;
+    text-shadow: none;
+  } @else {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+
+    &.focusable:active,
+    &.focusable:focus {
+      clip: auto;
+      height: auto;
+      margin: 0;
+      overflow: visible;
+      position: static;
+      width: auto;
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Hovers
+// ---------------------------------------------------------------------------
+
+@mixin underline-hover($color: $c-black) {
+  color: $color;
+
+  &:hover,
+  &:focus {
+    box-shadow: inset 0 -1px 0 0 $color;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Links
+// ---------------------------------------------------------------------------
+
+@mixin text-link(
+  $style: "all",
+  $color: $c-black,
+  $hover: $c-red,
+  $highlight: $c-yellow
+) {
+  color: $color;
+  display: inline;
+
+  @if $style == "underline" {
+    text-decoration: underline;
+  }
+
+  @if $style == "all" {
+    background-color: $highlight;
+    text-decoration: underline;
+  }
+
+  &:hover,
+  &:focus {
+    color: $hover;
+
+    @if $style == "all" {
+      background-color: transparent;
+    }
+  }
+}
+
+@mixin outline-link($bgColor: $c-white) {
+  color: $bgColor;
+  text-shadow: $text-stroke;
+
+  @supports (-webkit-text-stroke-width: 1px) {
+    -webkit-text-stroke: 1px $c-black;
+    text-shadow: none;
+  }
+
+  &:hover,
+  &:focus {
+    color: $c-red;
+  }
+}
+
+@mixin underline-link($color: $c-black, $hover: $c-red) {
+  color: $color;
+  text-decoration: underline;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    color: $hover;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Buttons
+// ---------------------------------------------------------------------------
+
+@mixin button($theme: "black", $style: "outlined", $size: "large") {
+  @include mono-header;
+  border-radius: 30px;
+  display: inline-block;
+  line-height: 1;
+
+  @if $size == "large" {
+    @include padding(18px 22px);
+  }
+
+  @if $size == "small" {
+    @include padding(12px 16px);
+  }
+
+  @if $theme == "black" and $style == "outlined" {
+    border: $border-black;
+    color: $c-black;
+    background: transparent;
+
+    &:not(:disabled) {
+      &:hover,
+      &:focus {
+        background-color: $c-black;
+        color: $c-white;
+        cursor: pointer;
+      }
+    }
+
+    &:disabled {
+      border: 1px solid $c-gray-medium;
+      color: $c-gray-text;
+      cursor: not-allowed;
+    }
+  }
+
+  @if $theme == "white" and $style == "outlined" {
+    border: $border-white;
+    color: $c-white;
+    background: transparent;
+
+    &:not(:disabled) {
+      &:hover,
+      &:focus {
+        background-color: $c-white;
+        color: $c-black;
+        cursor: pointer;
+      }
+    }
+
+    &:disabled {
+      border: 1px solid $c-gray-medium;
+      color: $c-gray-text;
+      cursor: not-allowed;
+    }
+  }
+
+  @if $theme == "black" and $style == "filled" {
+    border: $border-black;
+    background-color: $c-black;
+    color: $c-white;
+
+    &:not(:disabled) {
+      &:hover,
+      &:focus {
+        background-color: transparent;
+        color: $c-black;
+        cursor: pointer;
+      }
+    }
+
+    &:disabled {
+      border: 1px solid $c-gray-medium;
+      color: $c-gray-text;
+      cursor: not-allowed;
+    }
+  }
+
+  @if $theme == "white" and $style == "filled" {
+    border: $border-white;
+    background-color: $c-white;
+    color: $c-black;
+
+    &:not(:disabled) {
+      &:hover,
+      &:focus {
+        background-color: transparent;
+        color: $c-white;
+        cursor: pointer;
+      }
+    }
+
+    &:disabled {
+      border: 1px solid $c-gray-medium;
+      color: $c-gray-text;
+      cursor: not-allowed;
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Fluid Font Sizing
+// ---------------------------------------------------------------------------
+
+@function strip-units($number) {
+  @return $number / ($number * 0 + 1);
+}
+
+@mixin fluid-font-size(
+  $min-size: 16px,
+  $max-size: 38px,
+  $min-width: 400px,
+  $max-width: 1400px
+) {
+  font-size: $min-size;
+
+  @include mq($min-width, $max-width) {
+    font-size: calc(
+      #{$min-size} + (#{strip-units($max-size)} - #{strip-units($min-size)}) * (
+          100vw - #{$min-width}
+        ) / (#{strip-units($max-width)} - #{strip-units($min-width)})
+    );
+  }
+
+  @include mq($max-width) {
+    font-size: $max-size;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Hide in IE and Edge
+// ---------------------------------------------------------------------------
+
+@mixin ieEdgeHide {
+  // IE 10 & 11
+  @media screen and (-ms-high-contrast: active),
+    screen and (-ms-high-contrast: none) {
+    display: none !important;
+  }
+
+  // Edge
+  @supports (-ms-ime-align: auto) {
+    display: none !important;
+  }
+}
