@@ -35,44 +35,6 @@ $(document).ready(function() {
   }
 })
 
-function personalizeHomepage(userId) {
-
-  // Personalize the team listing on the left.
-  // Most-frequently-visited teams are inserted at the top, then padded with default entries.
-  fetchHistory('teams', userId, function(data) {
-    var expectedLength = $('.teams-cat-list li').length
-    var items = data.mostViewed.map(function(el) {
-      // kill existing elements that on the mostViewed list to avoid dupes
-      $('ul.teams-cat-list li[data-team-id="' + el.team.id + '"]').detach()
-
-      return '<li><a class="button btn-cat" href="' + el.team.path + '">' + el.team.prettyName + '</a></li>'
-    }).join('')
-
-    $('ul.teams-cat-list').prepend(items)
-    $('ul.teams-cat-list li:gt(' + (expectedLength - 1) + ')').detach()
-  })
-
-  /*
-    This code swaps "Favorite Docs" into the "Useful Docs" panel if you have at least three favorites.
-    We decided that we'll disable for v1 but perhaps incorporate after initial launch.
-
-    fetchHistory('docs', userId, function(data) {
-      var favorites = data.mostViewed.filter(function(el) {
-        return el.viewCount > 5
-      })
-
-      if(favorites.length < 3) { return }
-
-      var items = favorites.map(function (el) {
-         return '<li><a href="' + el.doc.path + '">' + el.doc.prettyName + '</a></li>'
-      })
-
-      $('.featured-cat-container h3').html('Favorite Docs')
-      $('ul.featured-cat-list').html(items)
-    })
-  */
-}
-
 function fetchHistory(type, userId, cb) {
   var key = "libraryHistory:" + userId + ':' + type
   var data
