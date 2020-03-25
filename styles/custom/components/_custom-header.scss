@@ -7,9 +7,11 @@
 }
 
 .custom-header {
-  position: relative;
+  align-items: center;
   border-bottom: 1px solid $c-gray;
+  display: flex;
   padding: 15px;
+  position: relative;
 
   &--has-sidebar {
     @include mq($md) {
@@ -19,6 +21,16 @@
 
     @include mq($lg) {
       padding-left: 300px + 15;
+    }
+  }
+
+  nav {
+    justify-self: flex-end;
+    margin-left: auto;
+
+    a {
+      color: $c-black;
+      margin: 0 5px;
     }
   }
 }

@@ -2,39 +2,35 @@
 <html>
   <%- include('../partials/head', {title: template('branding.prettyName')}) %>
   <body>
+    <%- include('../partials/header', {parentLinks: [], title: template('branding.name')}) %>
 
-    <header id="masthead" class="masthead" role="banner">
-      <div class="container">
-        <%- include ../partials/navTop %>
-        <!-- <%- include ../partials/userTools %> -->
-      </div>
-    </header>
+    <main class="site-page">
+      <div id="main-search-page">
+        <% if (locals.sideNav && locals.sideNav.length) { %>
+          <% locals.sideNav.forEach((item) => { %>
+            <% if (item.children && item.children.length) { %>
+              <a href="<%- item.path %>"><%- item.prettyName %></a>
 
-    <div id="main-search-page">
-      <div class="main-item">
-        <%- include('../partials/branding', {context: 'home'}) %>
-        <div class="tagline">
-          <p><%- template('landing.tagline') %> <%- template('landing.quickLink') %></p>
-        </div>
-        <%- include('../partials/search', {style: 'homepage', focus: 'autofocus', msgOnFocus: template('search.placeholder')}) %>
-
-        <% if (locals.content) { %>
-          <%- locals.content %>
+              <% item.children.forEach((child) => { %>
+                <a href="<%- child.url %>"><%- child.name %></a>
+              <%  }) %>
+            <% } %>
+          <%  }) %>
         <% } %>
 
-        <div class="featured-cat">
-          <% if (modules.length) { 
-            modules.forEach((module, i, all) => {
-          %>
-            <%- include('../partials/landingModule', module) %>
-          <%  })  
-          } else { %>
-          <!-- Eventually we might display a warning here about why this space is empty. -->
+        <div class="main-item">
+          <%- include('../partials/branding', {context: 'home'}) %>
+          <div class="tagline">
+            <p><%- template('landing.tagline') %></p>
+          </div>
+          <%- include('../partials/search', {style: 'homepage', focus: 'autofocus', msgOnFocus: template('search.placeholder')}) %>
+
+          <% if (locals.content) { %>
+            <%- locals.content %>
           <% } %>
         </div>
-
+        <%- include('../partials/footer', {style: 'homepage', pageType: 'homepage'}) %>
       </div>
-      <%- include('../partials/footer', {style: 'homepage', pageType: 'homepage'}) %>
-    </div>
+    </main>
   </body>
 </html>

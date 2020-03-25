@@ -2,12 +2,12 @@
 <html>
   <%- include ../partials/head %>
   <body>
+    <%- include('../partials/header') %>
+
     <main class="site-page">
-      <%- include ../partials/header %>
-      <%- include ../partials/nav %>
-      <%- include ../partials/navTop %>
-      <div class="g-body">
+      <div id="categories-page" class="g-body">
         <div class="g-main-content">
+          <h1 class="headline"><%= title %></h1>
           <% if (locals.content) { %>
             <%- content %>
           <% } %>
