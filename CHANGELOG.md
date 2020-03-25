@@ -1,6 +1,7 @@
 ## Newest First
 
 ### 25 March
+- Remove userAuth logic
 - Remove "Find by Team" module
 - Make text aligned Superscript into a Tooltip
 
