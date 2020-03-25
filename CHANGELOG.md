@@ -1,5 +1,10 @@
 ## Newest First
 
+### 25 March
+- Remove userAuth logic
+- Remove "Find by Team" module
+- Make text aligned Superscript into a Tooltip
+
 ### 24 March
 - Added ability for Index and About page to pull content from Google Docs.
 - Removed UserTools as we do not have users.

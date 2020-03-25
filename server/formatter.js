@@ -51,8 +51,16 @@ function normalizeHtml(html) {
       // REMARK: should we replace with <strong> and <em> eventually?
       const newStyle = elStyle.split(';').filter((styleRule) => {
         if (['img'].includes(el.tagName) && /width/.test(styleRule)) { return true }
-        return /font-style:italic|font-weight:700|text-decoration:underline/.test(styleRule)
+        return /font-style:italic|font-weight:700|vertical-align:super|text-decoration:underline/.test(styleRule)
       }).join(';')
+
+      if (newStyle === 'vertical-align:super') {
+        $(el).removeAttr('style')
+        $(el).addClass('tooltip-content')
+        $(el).wrap('<span class="tooltip-wrapper"></span>')
+        $(el).before('<span class="tooltip-icon"></span>')
+        return el
+      }
 
       if (newStyle.length > 0) {
         $(el).attr('style', newStyle)
