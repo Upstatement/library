@@ -4,19 +4,21 @@
   <body>
     <%- include('../partials/header', {parentLinks: [], title: template('landing.viewAll')}) %>
 
-    <div class="g-upper-body">
-    <%- include('../partials/nav') %>
-    <%- include ../partials/navTop %>
-    </div>
-
-    <div id="category-page" class="g-body">
-      <div class="g-main-content">
-      <% all.forEach((category) => { %>
-        <%- include('../partials/childrenList', {kicker: category.prettyName, children: category.children, link: category.path}) %>
-      <% }) %>
+    <main class="site-page">
+      <div class="g-upper-body">
+        <%- include('../partials/nav') %>
+        <%- include ../partials/navTop %>
       </div>
-      <script> seeMoreButton() </script>
-      <%- include('../partials/footer', { pageType: 'category_index' }) %>
-    </div>
+
+      <div id="category-page" class="g-body">
+        <div class="g-main-content">
+          <% all.forEach((category) => { %>
+            <%- include('../partials/childrenList', {kicker: category.prettyName, children: category.children, link: category.path}) %>
+          <% }) %>
+        </div>
+        <script> seeMoreButton() </script>
+        <%- include('../partials/footer', { pageType: 'category_index' }) %>
+      </div>
+    </main>
   </body>
 </html>

@@ -1,7 +1,14 @@
 <header id="masthead" class="masthead" role="banner">
   <div class="container">
-    <%- include branding %>
-    <%- include breadcrumb %>
+    <%- include custom/customHeader %>
+
+    <% if (locals.sections && locals.sections.length) { %>
+    <!-- is this TOC -->
+      <%- include custom/customSidebar %>
+    <% } %>
+
+    <!-- <%- include branding %> -->
+    <!-- include breadcrumb -->
     <!-- <%- include userTools %> -->
   </div>
 </header>

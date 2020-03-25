@@ -4,19 +4,22 @@
   <body>
     <%- include('../partials/header', {parentLinks: [], title: template('landing.viewAll')}) %>
 
-    <div class="g-upper-body">
-    <%- include('../partials/nav') %>
-    <%- include ../partials/navTop %>
-    </div>
-
-    <div id="about-page" class="g-body">
-      <div class="g-main-content">
-        <% if (locals.content) { %>
-          <%- locals.content %>
-        <% } %>
+    <main class="site-page">
+      <div class="g-upper-body">
+      <%- include('../partials/nav') %>
+      <%- include ../partials/navTop %>
       </div>
-      <script> seeMoreButton() </script>
-      <%- include('../partials/footer', { pageType: 'category_index' }) %>
-    </div>
+
+      <div id="about-page" class="g-body">
+        <div class="g-main-content">
+          <% if (locals.content) { %>
+            <%- locals.content %>
+          <% } %>
+        </div>
+        <script> seeMoreButton() </script>
+        <%- include('../partials/footer', { pageType: 'category_index' }) %>
+      </div>
+    </main>
+
   </body>
 </html>
