@@ -7,6 +7,7 @@ const {getMeta} = require('../list')
 const {fetchDoc, cleanName} = require('../docs')
 const {getTemplates, sortDocs, stringTemplate} = require('../utils')
 const {parseUrl} = require('../urlParser')
+const {getTopNav} = require('../navigation')
 
 router.get('*', handleCategory)
 module.exports = router
@@ -20,6 +21,7 @@ async function handleCategory(req, res) {
 
   if (!meta || !data) return 'next'
 
+  const topNavigation = await getTopNav()
   const {resourceType, tags, id} = meta
   const {breadcrumb, duplicates} = data
 
@@ -48,7 +50,7 @@ async function handleCategory(req, res) {
 
   // if this is a folder, just render from the generic data
   if (resourceType === 'folder') {
-    return res.render(template, baseRenderData, (err, html) => {
+    return res.render(template, Object.assign({}, baseRenderData, {topNav: topNavigation}), (err, html) => {
       if (err) throw err
       res.end(html)
     })
@@ -60,6 +62,7 @@ async function handleCategory(req, res) {
 
   res.render(template, Object.assign({}, baseRenderData, {
     content: html,
+    topNav: topNavigation,
     byline,
     createdBy,
     sections

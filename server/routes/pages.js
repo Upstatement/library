@@ -6,6 +6,8 @@ const router = require('express-promise-router')()
 const {fetchDoc} = require('../docs')
 const {parseUrl} = require('../urlParser')
 
+const {getTopNav} = require('../navigation')
+
 const {getTree, getFilenames, getMeta, getTagged} = require('../list')
 const {getTemplates, sortDocs, stringTemplate, getConfig} = require('../utils')
 
@@ -29,6 +31,8 @@ async function handlePage(req, res) {
   const page = req.params.page || 'index'
   if (!pages.has(page)) return 'next'
 
+  const topNavigation = await getTopNav()
+
   const template = `pages/${page}`
   const {q, autocomplete} = req.query
   if (page === 'search' && q) {
@@ -40,7 +44,7 @@ async function handlePage(req, res) {
         if (exactMatches.length === 1) return res.redirect(exactMatches[0].path)
       }
 
-      res.render(template, {q, results, template: stringTemplate})
+      res.render(template, {q, results, template: stringTemplate, topNav: topNavigation})
     })
   }
 
@@ -70,7 +74,9 @@ async function handlePage(req, res) {
       const content = await getPageContent(page, tree, req)
 
       res.render(template, Object.assign({}, categories, baseRenderData, {
-        content: content
+        content: content,
+        topNav: topNavigation,
+        sideNav: topNavigation
       }), (err, html) => {
         if (err) throw err
         res.end(html)
@@ -97,18 +103,20 @@ async function handlePage(req, res) {
       const content = await getPageContent(page, tree, req)
 
       res.render(template, Object.assign({}, categories, baseRenderData, {
-        content: content
+        content: content,
+        topNav: topNavigation
       }), (err, html) => {
         if (err) throw err
         res.end(html)
       })
     }
 
-    res.render(template, {...categories, template: stringTemplate})
+    res.render(template, {...categories, template: stringTemplate, topNav: topNavigation})
     return
   }
 
-  res.render(template, {template: stringTemplate})
+  res.render(template, {template: stringTemplate, topNav: topNavigation})
+}
 }
 
 async function getPageContent(page, tree, req) {
