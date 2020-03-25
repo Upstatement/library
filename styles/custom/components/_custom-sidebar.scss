@@ -1,0 +1,94 @@
+// ---------------------------------------------------------------------------
+// Custom Sidebar
+// ---------------------------------------------------------------------------
+
+.custom-sidebar {
+  @include fixed(0 x 0 0);
+  display: block;
+  max-width: 300px;
+  width: 100%;
+  background: linear-gradient(180deg, #0a3ab5 0%, #0a0884 100%);
+
+  @include mq($md) {
+    max-width: 250px;
+  }
+
+  @include mq($lg) {
+    max-width: 300px;
+  }
+}
+
+.custom-sidebar__heading,
+.custom-sidebar__content {
+  @include mq($md) {
+    padding: 20px;
+  }
+
+  @include mq($lg) {
+    padding: 20px;
+  }
+}
+
+.custom-sidebar__content {
+  position: relative;
+  width: 100%;
+}
+
+.custom-sidebar__heading {
+  position: relative;
+  height: 70px;
+  border-bottom: 1px solid rgba($c-white, 0.3);
+}
+
+.custom-sidebar__h {
+  font-weight: 700;
+  color: $c-white;
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 30px;
+}
+
+.custom-sidebar__list {
+  @include ul-null;
+  padding-top: 10px;
+  margin: 0;
+  counter-reset: sidebarCounter;
+}
+
+.custom-sidebar__list-item {
+  @include padding(x x x 20px);
+  @include margin(x x 20px x);
+  border-bottom: 1px solid rgba($c-white, 0.3);
+  position: relative;
+  font-weight: 700;
+  counter-increment: sidebarCounter;
+  color: $c-white;
+
+  &:before {
+    content: counter(sidebarCounter) ". ";
+    @include absolute(x x x 0px);
+  }
+}
+
+.custom-sidebar__sub-list {
+  @include ul-null;
+}
+
+.custom-sidebar__sub-list-item {
+  @include padding(x x 20px x);
+  font-weight: normal;
+}
+
+.custom-sidebar__title-link {
+  font-weight: 700;
+  font-size: 14px;
+  color: $c-white;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: block;
+  padding-bottom: 20px;
+}
+
+.custom-sidebar__link {
+  color: rgba($c-white, 0.7);
+}

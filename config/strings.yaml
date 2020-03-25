@@ -6,6 +6,7 @@ branding:
   name: Covid Protocols
   prettyName: Covid Protocols
   org: Brigham and Women's Hospitals
+  logo: /assets/images/bwh-logo.jpg
   icon: /assets/images/icon-logo.svg
   favicon: /assets/images/library.ico
 

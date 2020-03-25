@@ -1,0 +1,29 @@
+// ---------------------------------------------------------------------------
+// Custom Header
+// ---------------------------------------------------------------------------
+
+.masthead {
+  background-color: $c-white;
+}
+
+.custom-header {
+  position: relative;
+  border-bottom: 1px solid $c-gray;
+  padding: 15px;
+
+  &--has-sidebar {
+    @include mq($md) {
+      padding-left: 250px + 15;
+      height: 70px;
+    }
+
+    @include mq($lg) {
+      padding-left: 300px + 15;
+    }
+  }
+}
+
+.custom-header__logo {
+  max-width: 220px;
+  width: 100%;
+}
