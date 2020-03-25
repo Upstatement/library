@@ -3,15 +3,15 @@
 
 # base config in partials/branding, partials/head
 branding:
-  name: Library
-  prettyName: Team Library
-  org: Your Organization
+  name: Covid Protocols
+  prettyName: Covid Protocols
+  org: Brigham and Women's Hospitals
   icon: /assets/images/icon-logo.svg
   favicon: /assets/images/library.ico
 
 # pages/categories, pages/index, partials/search
 landing:
-  tagline: One place for your organization's documents.
+  tagline: COVID-19 Critical Care Clinical Guidelines
   viewAll: View All
   quickLink: <a href="/get-started">Get Started.</a>
   modules:
@@ -22,8 +22,8 @@ landing:
 
 # partials/footer
 footer:
-  helpText: Questions? Contact your organization's administrators.
-  defaultEmail: user@your_organization.com
+  helpText: 'Please send suggestions and questions:'
+  defaultEmail: BWHCOVIDGuidelines@gmail.com
   buttons:
     edit: Edit This Page
     move: Move This Page
