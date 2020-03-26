@@ -53,16 +53,22 @@ function normalizeHtml(html) {
       // REMARK: should we replace with <strong> and <em> eventually?
       const newStyle = elStyle.split(';').filter((styleRule) => {
         if (['img'].includes(el.tagName) && /width/.test(styleRule)) { return true }
-        return /font-style:italic|font-weight:700|vertical-align:sub|text-decoration:underline/.test(styleRule)
+        return /font-style:italic|font-weight:700|vertical-align:sub|vertical-align:super|text-decoration:line-through|text-decoration:underline/.test(styleRule)
       }).join(';')
 
-      // We use subscript for tooltips
-      if (newStyle.includes('vertical-align:sub')) {
+      // We use strkethrough for tooltips
+      if (newStyle.includes('line-through')) {
+        const prev = el.previousSibling
         const next = el.nextSibling
 
         let isLast = false
-        if (!next || $(next).attr('style') === undefined || ($(next).attr('style') && !$(next).attr('style').includes('vertical-align:sub'))) {
+        if (!next || $(next).attr('style') === undefined || ($(next).attr('style') && !$(next).attr('style').includes('line-through'))) {
           isLast = true
+        }
+
+        let isFirst = false
+        if (!prev || $(prev).attr('style') === undefined || ($(prev).attr('style') && !$(prev).attr('style').includes('line-through'))) {
+          isFirst = true
         }
 
         if (!isLast) {
@@ -70,11 +76,15 @@ function normalizeHtml(html) {
           $(el).remove()
           return
         } else {
+          if (isFirst && isLast) {
+            itemArray.push(el)
+          }
+
           $(el).after('<span class="tooltip-wrapper"><span class="tooltip-content"></span></span>')
 
           const children = itemArray.map((child) => {
-            if ($(child).attr('style') && $(child).attr('style').includes('vertical-align:sub')) {
-              $(child).attr('style', $(child).attr('style').replace('vertical-align:sub;', '').replace('vertical-align:sub', ''))
+            if ($(child).attr('style') && $(child).attr('style').includes('line-through')) {
+              $(child).attr('style', $(child).attr('style').replace('text-decoration:line-through;', '').replace('text-decoration:line-through', '').replace('line-through', ''))
               if (!$(child).attr('style').length) {
                 $(child).removeAttr('style')
               }
