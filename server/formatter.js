@@ -43,6 +43,8 @@ function normalizeHtml(html) {
   // as well as inline comment references
   $('sup').has('a[id^=cmnt]').remove()
 
+  let itemArray = []
+
   $('body *').map((idx, el) => {
     // Filter the style attr on each element
     const elStyle = $(el).attr('style')
@@ -51,15 +53,40 @@ function normalizeHtml(html) {
       // REMARK: should we replace with <strong> and <em> eventually?
       const newStyle = elStyle.split(';').filter((styleRule) => {
         if (['img'].includes(el.tagName) && /width/.test(styleRule)) { return true }
-        return /font-style:italic|font-weight:700|vertical-align:super|text-decoration:underline/.test(styleRule)
+        return /font-style:italic|font-weight:700|vertical-align:sub|text-decoration:underline/.test(styleRule)
       }).join(';')
 
-      if (newStyle === 'vertical-align:super') {
-        $(el).removeAttr('style')
-        $(el).addClass('tooltip-content')
-        $(el).wrap('<span class="tooltip-wrapper"></span>')
-        $(el).before('<span class="tooltip-icon"></span>')
-        return el
+      // We use subscript for tooltips
+      if (newStyle.includes('vertical-align:sub')) {
+        const next = el.nextSibling
+
+        let isLast = false
+        if (!next || $(next).attr('style') === undefined || ($(next).attr('style') && !$(next).attr('style').includes('vertical-align:sub'))) {
+          isLast = true
+        }
+
+        if (!isLast) {
+          itemArray.push(el)
+          $(el).remove()
+          return
+        } else {
+          $(el).after('<span class="tooltip-wrapper"><span class="tooltip-content"></span></span>')
+
+          const children = itemArray.map((child) => {
+            if ($(child).attr('style') && $(child).attr('style').includes('vertical-align:sub')) {
+              $(child).attr('style', $(child).attr('style').replace('vertical-align:sub;', '').replace('vertical-align:sub', ''))
+              if (!$(child).attr('style').length) {
+                $(child).removeAttr('style')
+              }
+            }
+            return child
+          })
+
+          el.nextSibling.children[0].children = children
+          $(el).remove()
+          itemArray = []
+          return
+        }
       }
 
       if (newStyle.length > 0) {
