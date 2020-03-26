@@ -64,7 +64,7 @@
         font-family: $font-branding;
         font-size: 28px;
         font-weight: 100;
-        line-height: 21px;
+        line-height: 1;
         text-transform: none;
         vertical-align: top;
         -webkit-font-smoothing: antialiased;
@@ -73,14 +73,12 @@
           height: 30px;
           padding: 15px 0 9px 18px;
           font-size: 38px;
-          line-height: 26px;
         }
 
         @include desktop {
           height: 30px;
           padding: 15px 0 10px 20px;
           font-size: 38px;
-          line-height: 26px;
         }
 
         a:link,
@@ -100,7 +98,7 @@
       margin: 0 auto;
       margin-bottom: 60px;
       font-size: 14px;
-      line-height: 21px;
+      line-height: 1.5;
       // width: 90%;
 
       @include tablet {
@@ -190,7 +188,7 @@
     .help-text {
       color: $main-page-text-color;
       font-size: 14px;
-      line-height: 21px;
+      line-height: 1.5;
       letter-spacing: 0;
       text-align: left;
       margin: 0;
@@ -208,12 +206,11 @@
       }
 
       @include tablet {
-        line-height: 18px;
+        line-height: 1.2;
         letter-spacing: 0.01em;
         text-align: center;
       }
       @include desktop {
-        line-height: 18px;
         letter-spacing: 0.01em;
         text-align: center;
       }

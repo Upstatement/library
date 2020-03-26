@@ -48,7 +48,7 @@
 }
 
 .nav-search-container {
-  @include fixed(70px 0 x);
+  @include fixed(77px 0 x);
   height: 70px;
   border-bottom: 1px solid $c-gray;
   background: $c-white;
@@ -56,6 +56,7 @@
   visibility: hidden;
 
   @include mq($md) {
+    top: 70px;
     border-left: 1px solid $c-gray;
     left: auto;
     width: 400px;
@@ -72,12 +73,11 @@
     .fa-search {
       &:before {
         content: "\f00d";
-        color: $c-white;
       }
     }
 
     .fa {
-      font-size: 18px;
+      font-size: 16px;
     }
   }
 }
@@ -94,11 +94,6 @@
     background: $accent;
     border-color: $accent;
     color: $c-white;
-  }
-
-  .show-search & {
-    background: $accent;
-    border-color: $accent;
   }
 }
 
@@ -118,4 +113,11 @@
   background: $c-white;
   border-left: 1px solid $c-gray;
   color: $accent;
+
+  &:hover,
+  &:focus {
+    background: $accent;
+    border-color: $accent;
+    color: $c-white;
+  }
 }
