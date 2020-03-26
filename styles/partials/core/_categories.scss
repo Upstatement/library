@@ -1,24 +1,6 @@
 // Upper Body
 //------------------------------------------------------------------------------
 .g-upper-body {
-  // max-width: 600px;
-  // margin: 80px auto 30px auto;
-  // padding: 0 20px;
-  // @include tablet{
-  //   margin: 80px auto 30px auto;
-  // }
-  // @include desktop{
-  //   margin: 80px auto 30px auto;
-  // }
-
-  .warning {
-    margin-top: 10px;
-    background-color: $gray-50;
-    color: $black;
-    padding: 15px;
-    font-size: 14px;
-  }
-
   h1.headline {
     font-family: $font-headline;
     font-size: 36px;
@@ -38,174 +20,16 @@
       // margin: 40px 0 5px;
     }
   }
-
-  .kicker {
-    display: flex;
-    flex-direction: row;
-    align-content: space-between;
-    justify-content: space-between;
-  }
-
-  .attribution {
-    p {
-      font-family: $font-sans;
-      font-size: 13px;
-      color: $nav-text-color;
-      margin: 0;
-      line-height: 18px;
-      font-weight: 400;
-
-      .author {
-        font-weight: 500;
-        color: #666;
-      }
-    }
-  }
-
-  .tool {
-    font-size: 13px;
-    font-weight: 400;
-
-    a {
-      color: $gray-40;
-      text-decoration: underline;
-      .fa {
-        margin-left: 5px;
-        color: $gray-40;
-      }
-    }
-
-    a:hover {
-      color: $accent;
-      .fa {
-        color: $accent;
-      }
-    }
-  }
 }
 
 // Body
 //------------------------------------------------------------------------------
 .g-body {
-  .g-left-panel {
-    float: left;
-    position: relative;
-    top: 8px;
-    width: 220px;
-    font-weight: 400;
-    display: none;
-    height: 90.9%;
-    overflow: auto;
-
-    @include tablet {
-      display: none;
-    }
-    @include desktop {
-      display: block;
-      padding: 10px 0;
-      width: 180px;
-    }
-    @media (min-width: 1175px) {
-      display: block;
-      padding: 10px 20px;
-      width: 220px;
-    }
-
-    &.d-fixed {
-      position: fixed;
-      top: 50px;
-    }
-
-    .section-kicker,
-    .sibling-kicker {
-      font-family: $font-sans;
-      font-weight: 600;
-      text-transform: capitalize;
-      color: $black;
-      font-size: 14px;
-      line-height: 24px;
-      margin-bottom: 10px;
-    }
-    .section-kicker {
-      margin-top: 20px;
-    }
-
-    .sibling-kicker {
-      margin-top: 0;
-    }
-
-    ul.section,
-    ul.sibling {
-      list-style-type: none;
-      margin: 0 0 20px 0;
-      padding: 0;
-
-      li {
-        display: block;
-        font-size: 15px;
-        line-height: 20px;
-        text-indent: -4px;
-        padding: 4px 0px;
-        border-bottom: 0.5px solid $gray-60;
-        font-weight: 400;
-
-        &:last-child {
-          border-bottom: none;
-        }
-
-        a,
-        strong {
-          padding: 3px 5px;
-          color: $gray-20;
-        }
-
-        a:hover {
-          color: $accent;
-        }
-      }
-    }
-
-    ul.sibling {
-      list-style-type: none;
-      margin: 40px 0 40px 0;
-      padding: 20px;
-      border: 1px solid $gray-60;
-      -webkit-box-shadow: -8px -8px 0px 0px rgba(236, 236, 236, 1);
-      -moz-box-shadow: -8px -8px 0px 0px rgba(236, 236, 236, 1);
-      box-shadow: -8px -8px 0px 0px rgba(236, 236, 236, 1);
-
-      .foldericon {
-        color: #444;
-        margin-left: 8px;
-        font-size: 14px;
-      }
-    }
-
-    ul.subsection {
-      padding: 0;
-
-      li {
-        margin-left: 17px;
-        border-bottom: 0;
-        text-indent: 3px;
-
-        &:before {
-          content: "";
-          border-bottom: 1px solid $gray-50;
-          width: 10px;
-          display: inline-block;
-          vertical-align: middle;
-          margin: 0 2px 0 -20px;
-        }
-      }
-    }
-  }
   .g-main-content {
     margin: 40px auto 0;
     padding-top: 40px;
   }
 
-  .playlist-navigation,
   .g-main-content {
     border-top: 5px solid $gray-60;
     word-break: break-word; // force break on very long lines without spaces
