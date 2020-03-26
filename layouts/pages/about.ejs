@@ -1,27 +1,29 @@
 <!DOCTYPE html>
 <html>
-  <%- include('../partials/head', {title: template('landing.viewAll')}) %>
+  <%- include ../partials/head %>
   <body>
-    <%- include('../partials/header', {
-      parentLinks: [], title:
-      template('landing.viewAll')
-    }) %>
+    <%- include('../partials/header') %>
 
-    <main class="site-page">
-      <div class="g-upper-body">
-        <%- include('../partials/nav') %>
-      </div>
+    <main id="categories-page" class="site-page">
+      <div class="page-inner">
+        <div class="page-width">
+          <div class="content__width g-upper-body">
+            <h1 class="headline"><%= title %></h1>
+          </div>
+          <div class="g-body">
+            <div class="g-main-content">
+              <div class="content__width">
+                <% if (locals.content) { %> <%- content %> <% } %> <% if
+                (locals.children && children.length) { %> <%-
+                include('../partials/childrenList', { children, kicker:
+                template('folder.childrenList.kicker', title) }) %> <% } %>
+              </div>
+            </div>
 
-      <div id="about-page" class="g-body">
-        <div class="g-main-content">
-          <% if (locals.content) { %>
-            <%- locals.content %>
-          <% } %>
+            <%- include('../partials/footer', { pageType: 'document',
+            topLevelFolder: url.split('/')[1] }) %>
+          </div>
         </div>
-        <script>
-          seeMoreButton();
-        </script>
-        <%- include('../partials/footer', { pageType: 'category_index' }) %>
       </div>
     </main>
   </body>

@@ -1,23 +1,31 @@
 <!DOCTYPE html>
 <html>
-  <%- include('../partials/head', {title: template('branding.prettyName')}) %>
+  <%- include ../partials/head %>
   <body>
-    <%- include('../partials/header', {parentLinks: [], title: template('branding.name')}) %>
+    <%- include('../partials/header') %>
 
-    <main class="site-page">
-      <div id="main-search-page">
-        <div class="main-item">
-          <%- include('../partials/branding', {context: 'home'}) %>
-          <div class="tagline">
-            <p><%- template('landing.tagline') %></p>
+    <main id="categories-page" class="site-page">
+      <div class="page-inner">
+        <div class="page-width">
+          <div class="content__width g-upper-body">
+            <h1 class="headline"><%= title %></h1>
           </div>
-          <%- include('../partials/search', {style: 'homepage', focus: 'autofocus', msgOnFocus: template('search.placeholder')}) %>
+          <div class="g-body">
+            <div class="g-main-content">
+              <div class="content__width">
+                <%- include('../partials/search', {style: 'homepage', focus:
+                'autofocus', msgOnFocus: template('search.placeholder')}) %> <%
+                if (locals.content) { %> <%- content %> <% } %> <% if
+                (locals.children && children.length) { %> <%-
+                include('../partials/childrenList', { children, kicker:
+                template('folder.childrenList.kicker', title) }) %> <% } %>
+              </div>
+            </div>
 
-          <% if (locals.content) { %>
-            <%- locals.content %>
-          <% } %>
+            <%- include('../partials/footer', { pageType: 'document',
+            topLevelFolder: url.split('/')[1] }) %>
+          </div>
         </div>
-        <%- include('../partials/footer', {style: 'homepage', pageType: 'homepage'}) %>
       </div>
     </main>
   </body>

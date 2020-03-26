@@ -195,3 +195,9 @@ button:focus {
     color: $accent;
   }
 }
+
+hr {
+  border: 1px solid $accent;
+  border-width: 1px 0 0;
+  margin: 100px 0;
+}
