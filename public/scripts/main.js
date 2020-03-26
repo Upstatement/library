@@ -11,6 +11,17 @@ $(document).ready(function() {
     $body.removeClass("show-sidebar");
   });
 
+  var allLinks = Array.from(document.querySelectorAll("a"));
+
+  if (allLinks.length > 0) {
+    allLinks.forEach(function(link) {
+      if (link.host !== window.location.host) {
+        link.setAttribute("rel", "noopener noreferrer");
+        link.setAttribute("target", "_blank");
+      }
+    });
+  }
+
   $("pre").html(function(index, html) {
     return html
       .split(/\r?\n/)
