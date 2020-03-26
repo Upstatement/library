@@ -5,6 +5,7 @@
 branding:
   name: Covid Protocols
   prettyName: Covid Protocols
+  longName: Brigham and Women’s Hospital COVID-19 Critical Care Clinical Guidelines
   org: Brigham and Women's Hospitals
   logo: /assets/images/bwh-logo.jpg
   icon: /assets/images/icon-logo.svg

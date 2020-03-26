@@ -1,18 +1,31 @@
 <div class="custom-header custom-header--has-sidebar">
   <span class="visually-hidden"><%- template('branding.org') %></span>
   <a href="/">
-    <img src=<%- template('branding.logo') %> class="custom-header__logo" alt="<%- template('branding.org') %>">
+    <img src=<%- template('branding.logo') %> class="custom-header__logo"
+    alt="<%- template('branding.org') %>">
   </a>
 
   <nav>
     <% if (locals.topNav && locals.topNav.length) { %>
       <% locals.topNav.forEach((item) => { %>
-        <% if (item.prettyName === 'Homepage') { %>
-          <a href="/">Home</a>
-        <% } else { %>
+        <% if (item.prettyName !== 'Homepage' && item.prettyName !== 'Protocols') { %>
           <a href="<%- item.path %>"><%- item.prettyName %></a>
         <% } %>
-      <%  }) %>
+      <% }) %>
     <% } %>
   </nav>
+
+  <button class="search-trigger js--search-trigger"><i class="fa fa-search"></i></button>
+
+  <form method="GET" action="/search" class="nav-search-container">
+    <input
+      id="nav-search-box"
+      class="twitter-typeahead nav-search-field"
+      type="text"
+      name="q"
+      value=""
+      placeholder="Search..."
+    />
+    <button class="icon nav-search-button"><i class="fa fa-search"></i></button>
+  </form>
 </div>

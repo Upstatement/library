@@ -5,7 +5,7 @@
 html {
   color: $c-black;
   font-size: 16px;
-  line-height: 1em;
+  line-height: 1.2;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100%;
@@ -35,6 +35,7 @@ body {
 // ---------------------------------------------------------------------------
 
 ::selection {
-  background: $c-black;
+  background: $accent;
+  color: $c-white;
   text-shadow: none;
 }

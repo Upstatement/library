@@ -1,7 +1,7 @@
 $(document).ready(function() {
   var $window = $(window);
   var $document = $(document);
-  var $body = $('body');
+  var $body = $("body");
 
   $(".js--mobile-menu-trigger").on("click", function() {
     $body.addClass("show-sidebar");
@@ -9,6 +9,13 @@ $(document).ready(function() {
 
   $(".js--mobile-close-trigger").on("click", function() {
     $body.removeClass("show-sidebar");
+  });
+
+  $(".js--search-trigger").on("click", function() {
+    $body.toggleClass("show-search");
+    if ($body.hasClass("show-search")) {
+      $("#nav-search-box").focus();
+    }
   });
 
   $("pre").html(function(index, html) {
