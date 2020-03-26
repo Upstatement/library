@@ -1,17 +1,28 @@
 <!DOCTYPE html>
 <html>
-  <%- include('../partials/head', {title: template('landing.viewAll')}) %>
+  <%- include('../partials/head', {
+    title: template('landing.viewAll')
+  }) %>
   <body>
-    <%- include('../partials/header', {parentLinks: [], title: template('landing.viewAll')}) %>
+    <%- include('../partials/header', {
+      parentLinks: [],
+      title: template('landing.viewAll')
+    }) %>
 
     <main class="site-page">
       <div id="category-page" class="g-body">
         <div class="g-main-content">
           <% all.forEach((category) => { %>
-            <%- include('../partials/childrenList', {kicker: category.prettyName, children: category.children, link: category.path}) %>
+            <%- include('../partials/childrenList', {
+              kicker: category.prettyName,
+              children: category.children,
+              link: category.path
+            }) %>
           <% }) %>
         </div>
-        <%- include('../partials/footer', { pageType: 'category_index' }) %>
+        <%- include('../partials/footer', {
+          pageType: 'category_index'
+        }) %>
       </div>
     </main>
   </body>
