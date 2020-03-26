@@ -53,7 +53,7 @@ function normalizeHtml(html) {
       // REMARK: should we replace with <strong> and <em> eventually?
       const newStyle = elStyle.split(';').filter((styleRule) => {
         if (['img'].includes(el.tagName) && /width/.test(styleRule)) { return true }
-        return /font-style:italic|font-weight:700|text-decoration:line-through|text-decoration:underline/.test(styleRule)
+        return /font-style:italic|font-weight:700|vertical-align:sub|vertical-align:super|text-decoration:line-through|text-decoration:underline/.test(styleRule)
       }).join(';')
 
       // We use strkethrough for tooltips
