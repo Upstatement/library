@@ -76,11 +76,6 @@ button:focus {
   outline: 0;
 }
 
-.legibility {
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-  font-feature-settings: "kern";
-}
 .visually-hidden {
   display: none;
 }
@@ -112,27 +107,6 @@ button:focus {
   }
 }
 
-.button.btn-cat {
-  background: $btn-default-background;
-  border-radius: 0;
-  margin: 4px 0 0 0;
-  -webkit-font-smoothing: antialiased;
-
-  @include tablet {
-    margin: 3px 0 0 0;
-  }
-  @include desktop {
-    margin: 3px 0 0 0;
-  }
-
-  &:hover {
-    cursor: pointer;
-    background: $btn-default-background-hover;
-    color: $btn-default-text-hover;
-    text-decoration: none;
-  }
-}
-
 .button.btn-homepage {
   margin: 10px 0 0 0;
   -webkit-font-smoothing: antialiased;
@@ -153,46 +127,6 @@ button:focus {
     -moz-box-shadow: 3px 3px 0px 0px $gray-25;
     box-shadow: 3px 3px 0px 0px $gray-25;
     text-decoration: none;
-  }
-}
-
-.button.btn-footer {
-  font-size: 15px;
-  line-height: 20px;
-  font-weight: 400;
-  font-style: normal;
-  font-family: $font-sans;
-  background-color: transparent;
-  transition: background-color 0.3s;
-  display: inline-block;
-  padding: 7px 10px;
-  border: 1px solid $gray-40;
-  cursor: pointer;
-  -webkit-font-smoothing: antialiased;
-  -webkit-box-shadow: 5px 5px 0px 0px $offwhite;
-  -moz-box-shadow: 5px 5px 0px 0px $offwhite;
-  box-shadow: 5px 5px 0px 0px $offwhite;
-  margin-right: 10px;
-  color: $gray-20;
-  margin-top: 10px;
-
-  &:hover {
-    background: $gray-20;
-    color: $white;
-  }
-}
-
-.button.btn-plaintext {
-  border: none;
-  text-decoration: underline;
-  background: transparent;
-  color: $nav-text-color;
-  font-size: 13px;
-  line-height: 29px;
-
-  &:hover {
-    cursor: pointer;
-    color: $accent;
   }
 }
 

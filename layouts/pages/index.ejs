@@ -13,17 +13,28 @@
           <div class="g-body">
             <div class="g-main-content">
               <div class="content__width">
-                <%- include('../partials/search', {style: 'homepage', focus:
-                'autofocus', msgOnFocus: template('search.placeholder')}) %> <%
-                if (locals.content) { %> <%- content %> <% } %> <% if
-                (locals.children && children.length) { %> <%-
-                include('../partials/childrenList', { children, kicker:
-                template('folder.childrenList.kicker', title) }) %> <% } %>
+                <%- include('../partials/search', {
+                  style: 'homepage',
+                  focus: 'autofocus',
+                  msgOnFocus: template('search.placeholder')
+                }) %>
+
+                <% if (locals.content) { %>
+                  <%- content %> <% } %>
+
+                  <% if (locals.children && children.length) { %>
+                    <%- include('../partials/childrenList', {
+                      children, kicker:
+                      template('folder.childrenList.kicker', title)
+                    }) %>
+                  <% } %>
               </div>
             </div>
 
-            <%- include('../partials/footer', { pageType: 'document',
-            topLevelFolder: url.split('/')[1] }) %>
+            <%- include('../partials/footer', {
+              pageType: 'document',
+              topLevelFolder: url.split('/')[1]
+            }) %>
           </div>
         </div>
       </div>
