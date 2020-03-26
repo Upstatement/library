@@ -60,17 +60,16 @@
 }
 
 .custom-sidebar__list-item {
-  @include padding(x x 20px 20px);
-  @include margin(x x 20px x);
-  border-bottom: 1px solid rgba($c-white, 0.3);
+  @include margin(x x 20px);
+  padding-left: 20px;
   position: relative;
   font-weight: 700;
   counter-increment: sidebarCounter;
   color: $c-white;
 
-  &:before {
-    content: counter(sidebarCounter) ". ";
-    @include absolute(x x x 0px);
+  &:not(:first-child) {
+    @include padding(20px x 0);
+    border-top: 1px solid rgba($c-white, 0.3);
   }
 }
 
@@ -91,8 +90,27 @@
   text-transform: uppercase;
   letter-spacing: 0.5px;
   display: block;
+  box-shadow: none;
+
+  &:before {
+    content: counter(sidebarCounter) ". ";
+    @include absolute(x x x 0px);
+  }
+
+  &:hover,
+  &:focus {
+    color: $c-white;
+  }
 }
 
 .custom-sidebar__link {
   color: rgba($c-white, 0.7);
+  box-shadow: none;
+  font-size: 14px;
+  font-weight: 500;
+
+  &:hover,
+  &:focus {
+    color: $c-white;
+  }
 }
