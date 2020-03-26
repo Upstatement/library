@@ -1,7 +1,33 @@
 <nav class="custom-sidebar">
+  
+  <button class="custom-sidebar__mobile-close js--mobile-close-trigger">
+    <span class="custom-sidebar__mobile-close-text">Close</span>
+    <svg class="custom-sidebar__mobile-close-icon" width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="24.3692" y1="8.35877" x2="8.35877" y2="24.3692" stroke="white" />
+      <line x1="23.6621" y1="24.3691" x2="7.65167" y2="8.35874" stroke="white" />
+    </svg>
+  </button>
+
+  <ul class="custom-sidebar__mobile-list">
+    <% if (locals.topNav && locals.topNav.length) { %>
+      <% locals.topNav.forEach((item) => { %>
+        <% if (item.prettyName === 'Homepage') { %>
+          <li class="custom-sidebar__mobile-list-item">
+            <a class="custom-sidebar__mobile-link" href="/">Home</a>
+          </li>
+        <% } else { %>
+          <li class="custom-sidebar__mobile-list-item">
+            <a class="custom-sidebar__mobile-link" href="<%- item.path %>"><%- item.prettyName %></a>
+          </li>
+        <% } %>
+      <%  }) %>
+    <% } %>
+  </ul>
+
   <div class="custom-sidebar__heading">
     <h3 class="custom-sidebar__h">Table of Contents</h3>
   </div>
+
   <div class="custom-sidebar__content">
     <% if (locals.sideNav && locals.sideNav.length) { %>
       <ol class="custom-sidebar__list">
@@ -29,4 +55,8 @@
       </ol>
     <% } %>
   </div>
+
 </nav>
+
+<%- include mobileMenuButton %>
+

@@ -1,0 +1,37 @@
+// ---------------------------------------------------------------------------
+// Mobile Menu Button
+// ---------------------------------------------------------------------------
+
+.mobile-menu-container {
+  @include fixed(x 0 0 0);
+  padding: 20px;
+  width: 100%;
+  display: block;
+
+  @include mq($md) {
+    display: none;
+  }
+}
+
+.mobile-menu-button {
+  @include reset-input;
+  width: 100%;
+  padding: 20px;
+  border: 1px solid $c-black;
+  background: $c-white;
+  display: flex;
+
+  @supports (backdrop-filter: blur(20px)) {
+    background: rgba($c-white, 0.8);
+    backdrop-filter: blur(6px);
+  }
+}
+
+.mobile-menu-button__text {
+  color: $c-blue;
+  font-size: 18px;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-right: auto;
+}
