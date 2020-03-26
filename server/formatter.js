@@ -43,6 +43,8 @@ function normalizeHtml(html) {
   // as well as inline comment references
   $('sup').has('a[id^=cmnt]').remove()
 
+  let itemArray = []
+
   $('body *').map((idx, el) => {
     // Filter the style attr on each element
     const elStyle = $(el).attr('style')
@@ -56,45 +58,30 @@ function normalizeHtml(html) {
 
       // We use subscript for tooltips
       if (newStyle.includes('vertical-align:sub')) {
-        const prev = el.previousSibling
+        const next = el.nextSibling
 
-        let isFirst = false
-
-        // Make sure that only the first use per line is made into a tooltip.
-        if (prev) {
-          if ($(prev).attr('style') === undefined || ($(prev).attr('style') && $(prev).attr('style').includes('vertical-align:sub'))) {
-            if ($(prev).attr('class') === undefined || ($(prev).attr('class') && $(prev).attr('class').includes('tooltip-content'))) {
-              isFirst = true
-            }
-          }
+        let isLast = false
+        if (!next || $(next).attr('style') === undefined || ($(next).attr('style') && !$(next).attr('style').includes('vertical-align:sub'))) {
+          isLast = true
         }
 
-        if (isFirst) {
-          let next = el.nextSibling
-          while (next) {
-            const isLast = !$(next) || !$(next).attr('style') || !$(next).attr('style').includes('vertical-align:sub')
-            if (isLast) {
-              break
-            }
-
-            if (next.tagName === 'span') {
-              // Drop the extra span tags
-              next.children.forEach((child) => {
-                el.children.push(child)
-              })
-            } else {
-              el.children.push(next)
-            }
-
-            next = next.nextSibling
-          }
-
-          $(el).removeAttr('style')
-          $(el).addClass('tooltip-content')
-          $(el).wrap('<span class="tooltip-wrapper"></span>')
-          return el
-        } else {
+        if (!isLast) {
+          itemArray.push(el)
           $(el).remove()
+          return
+        } else {
+          $(el).after('<span class="tooltip-wrapper"><span class="tooltip-content"></span></span>')
+
+          const children = itemArray.map((child) => {
+            if ($(child).attr('style') && $(child).attr('style').includes('vertical-align:sub')) {
+              $(child).attr('style', $(child).attr('style').replace('vertical-align:sub;', '').replace('vertical-align:sub', ''))
+            }
+            return child
+          })
+
+          el.nextSibling.children[0].children = children
+          $(el).remove()
+          itemArray = []
           return
         }
       }
