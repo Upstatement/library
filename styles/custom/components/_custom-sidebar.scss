@@ -8,6 +8,7 @@
   width: 100%;
   background: linear-gradient(180deg, #0a3ab5 0%, #0a0884 100%);
   overflow-y: scroll;
+  -webkit-overflow-scroll: touch;
   opacity: 0;
   transform: translateX(-100%);
   transition: opacity 0.2s $easeInOutQuad;
