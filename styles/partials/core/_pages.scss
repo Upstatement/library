@@ -5,12 +5,12 @@
   padding: 85px 20px 3px 20px;
   min-height: calc(100vh - 88px);
 
-  @include tablet{
+  @include tablet {
     padding: 85px 0px 3px 0px;
     min-height: calc(100vh - 88px);
   }
 
-  @include desktop{
+  @include desktop {
     padding: 85px 0px 3px 0px;
     min-height: calc(100vh - 88px);
   }
@@ -21,13 +21,12 @@
   }
 
   .main-item {
-
-    @include tablet{
+    @include tablet {
       max-width: 600px;
       margin: 30px auto 0 auto;
     }
 
-    @include desktop{
+    @include desktop {
       max-width: 600px;
       margin: 30px auto 0 auto;
     }
@@ -46,11 +45,11 @@
           // filter: invert(100%) brightness(80%);
           padding-top: 9px;
 
-          @include tablet{
+          @include tablet {
             height: 36px;
           }
 
-          @include desktop{
+          @include desktop {
             height: 36px;
           }
         }
@@ -70,21 +69,22 @@
         vertical-align: top;
         -webkit-font-smoothing: antialiased;
 
-        @include tablet{
+        @include tablet {
           height: 30px;
           padding: 15px 0 9px 18px;
           font-size: 38px;
           line-height: 26px;
         }
 
-        @include desktop{
+        @include desktop {
           height: 30px;
           padding: 15px 0 10px 20px;
           font-size: 38px;
           line-height: 26px;
         }
 
-        a:link, a:visited {
+        a:link,
+        a:visited {
           color: $gray-50;
         }
         a:hover {
@@ -105,15 +105,15 @@
 
       @include tablet {
         font-size: 15px;
-    		width: 100%;
+        width: 100%;
         margin-bottom: 10vh;
-    	}
+      }
 
       @include desktop {
         font-size: 15px;
         width: 100%;
         margin-bottom: 10vh;
-    	}
+      }
     }
 
     .search-topper {
@@ -125,12 +125,12 @@
       width: calc(100vw - 60px);
       padding: 0px 6px 0 0;
 
-      @include tablet{
-    		// width: calc(100vw - 140px);
-    	}
-    	@include desktop{
-    		width: 586px;
-    	}
+      @include tablet {
+        // width: calc(100vw - 140px);
+      }
+      @include desktop {
+        width: 586px;
+      }
 
       .twitter-typeahead {
         background: $search-container-background;
@@ -141,17 +141,17 @@
         }
       }
 
-      .icon{
+      .icon {
         height: 50px;
         width: 50px;
         font-size: 15pt;
         margin-left: -50px;
         opacity: 0.95;
-        -webkit-transition: opacity .35s ease;
-        -moz-transition: opacity .35s ease;
-        -ms-transition: opacity .35s ease;
-        -o-transition: opacity .35s ease;
-        transition: opacity .35s ease;
+        -webkit-transition: opacity 0.35s ease;
+        -moz-transition: opacity 0.35s ease;
+        -ms-transition: opacity 0.35s ease;
+        -o-transition: opacity 0.35s ease;
+        transition: opacity 0.35s ease;
       }
 
       &:hover {
@@ -165,11 +165,11 @@
       justify-content: center;
       margin-top: 30px;
 
-      @include desktop{
-    		margin-top: 40px;
-    	}
+      @include desktop {
+        margin-top: 40px;
+      }
 
-      &.homepage{
+      &.homepage {
         display: none;
       }
       // button:first-child {
@@ -180,14 +180,14 @@
     .featured-cat {
       margin-top: 40px;
 
-      @include tablet{
-    		margin-top: 30px;
+      @include tablet {
+        margin-top: 30px;
         display: flex;
-    	}
-      @include desktop{
-    		margin-top: 30px;
+      }
+      @include desktop {
+        margin-top: 30px;
         display: flex;
-    	}
+      }
 
       .cat-container {
         flex: 0 50%;
@@ -200,10 +200,10 @@
           color: $main-page-text-color;
           margin: 15px 0;
 
-          @include tablet{
+          @include tablet {
             font-size: 15px;
           }
-          @include desktop{
+          @include desktop {
             font-size: 15px;
           }
         }
@@ -223,10 +223,10 @@
             li {
               display: inline-block;
 
-              @include tablet{
+              @include tablet {
                 display: block;
               }
-              @include desktop{
+              @include desktop {
                 display: block;
               }
             }
@@ -264,13 +264,12 @@
   }
 
   .main-item--bottom {
-
-    @include tablet{
+    @include tablet {
       top: 20px;
       max-width: 100%;
       padding-bottom: 20px;
     }
-    @include desktop{
+    @include desktop {
       top: 20px;
       max-width: 100%;
       padding-bottom: 20px;
@@ -282,6 +281,7 @@
       line-height: 21px;
       letter-spacing: 0;
       text-align: left;
+      margin: 0;
 
       a {
         color: $main-page-text-color;
@@ -295,12 +295,12 @@
         }
       }
 
-      @include tablet{
+      @include tablet {
         line-height: 18px;
         letter-spacing: 0.01em;
         text-align: center;
       }
-      @include desktop{
+      @include desktop {
         line-height: 18px;
         letter-spacing: 0.01em;
         text-align: center;
@@ -308,7 +308,6 @@
     }
   }
 }
-
 
 // Categories Homepage
 //------------------------------------------------------------------------------
@@ -322,7 +321,7 @@
     border-top: 0;
     justify-content: center;
 
-    .children-view{
+    .children-view {
       padding-left: 10px;
       &.hide {
         padding-left: 10px;
@@ -350,16 +349,15 @@
       background-color: $gray-60;
     }
 
-
     .children-container {
       overflow: visible;
       margin: 0 12px 30px 12px;
       padding: 25px;
       border: 1px solid $gray-60;
       width: 100%;
-      -webkit-box-shadow: -4px -4px 0px 0px rgba(239,239,239,1);
-      -moz-box-shadow: -4px -4px 0px 0px rgba(239,239,239,1);
-      box-shadow: -4px -4px 0px 0px rgba(239,239,239,1);
+      -webkit-box-shadow: -4px -4px 0px 0px rgba(239, 239, 239, 1);
+      -moz-box-shadow: -4px -4px 0px 0px rgba(239, 239, 239, 1);
+      box-shadow: -4px -4px 0px 0px rgba(239, 239, 239, 1);
 
       @include tablet {
         width: 40.9%;
@@ -381,7 +379,8 @@
         margin-left: -5px;
       }
 
-      ol,ul {
+      ol,
+      ul {
         margin: 0;
         padding-left: 0px;
         column-count: 1;
