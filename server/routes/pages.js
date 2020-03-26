@@ -76,8 +76,7 @@ async function handlePage(req, res) {
 
       res.render(template, Object.assign({}, categories, baseRenderData, {
         content: content,
-        topNav: topNavigation,
-        sideNav: topNavigation
+        topNav: topNavigation
       }), (err, html) => {
         if (err) throw err
         res.end(html)

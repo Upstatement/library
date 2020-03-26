@@ -6,18 +6,6 @@
 
     <main class="site-page">
       <div id="main-search-page">
-        <% if (locals.sideNav && locals.sideNav.length) { %>
-          <% locals.sideNav.forEach((item) => { %>
-            <% if (item.children && item.children.length) { %>
-              <a href="<%- item.path %>"><%- item.prettyName %></a>
-
-              <% item.children.forEach((child) => { %>
-                <a href="<%- child.url %>"><%- child.name %></a>
-              <%  }) %>
-            <% } %>
-          <%  }) %>
-        <% } %>
-
         <div class="main-item">
           <%- include('../partials/branding', {context: 'home'}) %>
           <div class="tagline">
