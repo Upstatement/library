@@ -1,11 +1,13 @@
-<% var style = locals.style === 'homepage' ? 'main-item main-item--bottom' :
-'g-footer' %>
+<% var style = locals.style === 'homepage' ?
+  'main-item main-item--bottom' :
+  'g-footer'
+%>
 <div class="<%= style %>">
   <p class="help-text">
     <%- template('footer.helpText') %>
-    <a href="mailto:<%- template('footer.defaultEmail') %>"
-      ><%- template('footer.defaultEmail') %></a
-    >
+    <a href="mailto:<%- template('footer.defaultEmail') %>">
+      <%- template('footer.defaultEmail') %>
+    </a>
   </p>
 </div>
 <script>
@@ -27,14 +29,4 @@
   <% } %>
 
   ga('send', 'pageview');
-
-  $(document).on('click', '#edit-button', function () {
-    $.ajax({
-      method: 'GET',
-      url: window.location.pathname,
-      data: {
-        edit: 1, // purge and keep out of cache temporarily
-      }
-    }) // no callback on this.
-  })
 </script>
