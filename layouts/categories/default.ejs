@@ -2,11 +2,13 @@
 <html>
   <%- include ../partials/head %>
   <body>
-    <main class="site-page">
+    <%- include('../partials/header') %>
+
+    <main id="categories-page" class="site-page">
       <div class="page-inner">
         <div class="page-width">
           <div class="content__width">
-            <%- include ../partials/header %> <%- include ../partials/nav %>
+            <h1 class="headline"><%= title %></h1>
           </div>
           <div class="g-body">
             <div class="g-main-content">

@@ -244,6 +244,7 @@ function buildTreeFromData(rootParent, previousData, breadcrumb) {
     nodeType: children ? 'branch' : 'leaf',
     prettyName: parentInfo.prettyName,
     home,
+    path: parentInfo.path,
     homePrettyName,
     id: rootParent,
     breadcrumb,

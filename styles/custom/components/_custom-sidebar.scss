@@ -33,6 +33,11 @@
   }
 }
 
+.custom-sidebar__content {
+  height: calc(100vh - 70px);
+  overflow-y: scroll;
+}
+
 .custom-sidebar__heading {
   position: relative;
   height: 70px;
