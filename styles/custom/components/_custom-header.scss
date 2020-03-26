@@ -12,6 +12,9 @@
   display: flex;
   padding: 15px;
   position: relative;
+  a {
+    box-shadow: none;
+  }
 
   &--has-sidebar {
     @include mq($md) {

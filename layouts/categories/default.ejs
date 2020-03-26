@@ -4,25 +4,34 @@
   <body>
     <%- include('../partials/header') %>
 
-    <main class="site-page">
-      <div id="categories-page" class="g-body">
-        <div class="g-main-content">
-          <h1 class="headline"><%= title %></h1>
-          <% if (locals.content) { %>
-            <%- content %>
-          <% } %>
-          <% if  (locals.children && children.length) { %>
-            <%- include('../partials/childrenList', {
-              children,
-              kicker: template('folder.childrenList.kicker', title)
-            }) %>
-          <% } %>
-        </div>
+    <main id="categories-page" class="site-page">
+      <div class="page-inner">
+        <div class="page-width">
+          <div class="content__width g-upper-body">
+            <h1 class="headline"><%= title %></h1>
+          </div>
+          <div class="g-body">
+            <div class="g-main-content">
+              <div class="content__width">
+                <% if (locals.content) { %>
+                  <%- content %>
+                <% } %>
 
-        <%- include('../partials/footer', {
-          pageType: 'document',
-          topLevelFolder: url.split('/')[1]
-        }) %>
+                <% if (locals.children && children.length) { %>
+                  <%- include('../partials/childrenList', {
+                    children, kicker:
+                    template('folder.childrenList.kicker', title)
+                  }) %>
+                <% } %>
+              </div>
+            </div>
+
+            <%- include('../partials/footer', {
+              pageType: 'document',
+              topLevelFolder: url.split('/')[1]
+            }) %>
+          </div>
+        </div>
       </div>
     </main>
   </body>

@@ -2,19 +2,27 @@
 <html>
   <%- include('../partials/head', {title: template('landing.viewAll')}) %>
   <body>
-    <%- include('../partials/header', {parentLinks: [], title: template('landing.viewAll')}) %>
+    <%- include('../partials/header', {
+      parentLinks: [], title:
+      template('landing.viewAll')
+    }) %>
 
     <main class="site-page">
+      <div class="g-upper-body">
+        <%- include('../partials/nav') %>
+      </div>
+
       <div id="about-page" class="g-body">
         <div class="g-main-content">
           <% if (locals.content) { %>
             <%- locals.content %>
           <% } %>
         </div>
-        <script> seeMoreButton() </script>
+        <script>
+          seeMoreButton();
+        </script>
         <%- include('../partials/footer', { pageType: 'category_index' }) %>
       </div>
     </main>
-
   </body>
 </html>
