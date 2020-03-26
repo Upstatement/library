@@ -7,23 +7,25 @@
       <ol class="custom-sidebar__list">
         <% locals.sideNav.forEach((item) => { %>
           <li class="custom-sidebar__list-item <%- (locals.name === item.prettyName) ? 'active' : '' %>">
-            <a href="<%- item.path %>" class="custom-sidebar__title-link">
-              <%= item.prettyName %>
-            </a>
+            <div class="custom-sidebar__list-item__inner">
+              <a href="<%- item.path %>" class="custom-sidebar__title-link">
+                <%= item.prettyName %>
+              </a>
 
-            <% if (locals.name === item.prettyName) { %>
-              <% if (sections && sections.length) { %>
-                <ul class="custom-sidebar__sub-list">
-                  <% sections.forEach((section) => { %>
-                  <li class="custom-sidebar__sub-list-item">
-                    <a href="<%- section.url %>" class="custom-sidebar__link">
-                      <%= section.name %>
-                    </a>
-                  </li>
-                  <% }) %>
-                </ul>
+              <% if (locals.name === item.prettyName) { %>
+                <% if (sections && sections.length) { %>
+                  <ul class="custom-sidebar__sub-list">
+                    <% sections.forEach((section) => { %>
+                    <li class="custom-sidebar__sub-list-item">
+                      <a href="<%- section.url %>" class="custom-sidebar__link">
+                        <%= section.name %>
+                      </a>
+                    </li>
+                    <% }) %>
+                  </ul>
+                <% } %>
               <% } %>
-            <% } %>
+            </div>
           </li>
         <% }) %>
       </ol>
