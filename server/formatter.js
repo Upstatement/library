@@ -75,6 +75,9 @@ function normalizeHtml(html) {
           const children = itemArray.map((child) => {
             if ($(child).attr('style') && $(child).attr('style').includes('vertical-align:sub')) {
               $(child).attr('style', $(child).attr('style').replace('vertical-align:sub;', '').replace('vertical-align:sub', ''))
+              if (!$(child).attr('style').length) {
+                $(child).removeAttr('style')
+              }
             }
             return child
           })
