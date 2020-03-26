@@ -7,7 +7,7 @@
   display: block;
   max-width: 300px;
   width: 100%;
-  background: linear-gradient(180deg, #0a3ab5 0%, #0a0884 100%);
+  background: linear-gradient(135deg, #0a3ab5 0%, #0a0884 100%);
 
   @include mq($md) {
     max-width: 250px;
@@ -18,17 +18,14 @@
   }
 }
 
-.custom-sidebar__heading,
 .custom-sidebar__content {
   line-height: 1.3;
   position: relative;
   width: 100%;
+}
 
+.custom-sidebar__heading {
   @include mq($md) {
-    padding: 20px;
-  }
-
-  @include mq($lg) {
     padding: 20px;
   }
 }
@@ -54,33 +51,49 @@
 
 .custom-sidebar__list {
   @include ul-null;
-  padding-top: 10px;
   margin: 0;
   counter-reset: sidebarCounter;
 }
 
 .custom-sidebar__list-item {
-  @include margin(x x 20px);
-  padding-left: 20px;
   position: relative;
   font-weight: 700;
   counter-increment: sidebarCounter;
   color: $c-white;
 
-  &:not(:first-child) {
-    @include padding(20px x 0);
-    border-top: 1px solid rgba($c-white, 0.3);
+  @include mq($md) {
+    padding: 0 20px;
+  }
+
+  &.active {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid #505bae;
+    border-width: 1px 0;
+  }
+}
+
+.custom-sidebar__list-item__inner {
+  position: relative;
+  border-top: 1px solid #505bae;
+
+  .custom-sidebar__list-item:first-child &,
+  .active + .custom-sidebar__list-item &,
+  .custom-sidebar__list-item.active & {
+    border-top: 0;
   }
 }
 
 .custom-sidebar__sub-list {
   @include ul-null;
+  @include padding(x x 20px 25px);
 }
 
 .custom-sidebar__sub-list-item {
   font-weight: normal;
 
-  @include padding(10px x x);
+  &:not(:first-child) {
+    @include padding(10px x x);
+  }
 }
 
 .custom-sidebar__title-link {
@@ -91,6 +104,11 @@
   letter-spacing: 0.5px;
   display: block;
   box-shadow: none;
+  padding: 20px 20px 20px 25px;
+
+  .custom-sidebar__list-item.active & {
+    padding-bottom: 10px;
+  }
 
   &:before {
     content: counter(sidebarCounter) ". ";
