@@ -49,7 +49,7 @@
   position: relative;
 
   @include mq($md) {
-    height: 70px;
+    height: 80px;
     border-bottom: 1px solid rgba($c-white, 0.3);
   }
 }
