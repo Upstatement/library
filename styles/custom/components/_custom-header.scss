@@ -11,13 +11,13 @@
   align-items: center;
   border-bottom: 1px solid $c-gray;
   display: flex;
-  padding: 15px 85px 15px 15px;
+  padding: 0 0 0 15px;
   position: relative;
-  @include mq($md) {
-    padding-right: 85px;
-  }
+
   a {
+    align-items: center;
     box-shadow: none;
+    display: flex;
   }
 
   &--has-sidebar {
@@ -32,12 +32,19 @@
   }
 
   nav {
+    align-self: stretch;
+    display: flex;
     justify-self: flex-end;
     margin-left: auto;
 
     a {
       color: $c-black;
-      margin: 0 15px 0 0;
+      padding: 5px 15px;
+    }
+
+    a:hover {
+      background: $accent;
+      color: $c-white;
     }
   }
 }
@@ -84,13 +91,13 @@
 
 .search-trigger {
   @include reset-input;
-  @include absolute(0 0 -1px x);
-  width: 70px;
-  color: $accent;
+  align-self: stretch;
   border-left: 1px solid $c-gray;
+  color: $accent;
+  cursor: pointer;
+  width: 70px;
 
-  &:hover,
-  &:focus {
+  &:hover {
     background: $accent;
     border-color: $accent;
     color: $c-white;
@@ -101,7 +108,6 @@
   @include reset-input;
   @include absolute(0);
   padding-left: 20px;
-  // @include size(100%)
   font-family: inherit;
   color: $c-black;
 }
@@ -109,10 +115,11 @@
 .nav-search-button {
   @include reset-input;
   @include absolute(0 0 0 x);
-  width: 70px;
   background: $c-white;
   border-left: 1px solid $c-gray;
   color: $accent;
+  cursor: pointer;
+  width: 70px;
 
   &:hover,
   &:focus {
