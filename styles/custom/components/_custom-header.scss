@@ -10,8 +10,11 @@
   align-items: center;
   border-bottom: 1px solid $c-gray;
   display: flex;
-  padding: 15px;
+  padding: 15px 85px 15px 15px;
   position: relative;
+  @include mq($md) {
+    padding-right: 85px;
+  }
   a {
     box-shadow: none;
   }
@@ -33,7 +36,7 @@
 
     a {
       color: $c-black;
-      margin: 0 5px;
+      margin: 0 15px 0 0;
     }
   }
 }
@@ -41,4 +44,49 @@
 .custom-header__logo {
   max-width: 220px;
   width: 100%;
+}
+
+.nav-search-container {
+  @include fixed(70px 0 x);
+  height: 70px;
+  border-bottom: 1px solid $c-gray;
+  background: $c-white;
+
+  @include mq($md) {
+    border-left: 1px solid $c-gray;
+    left: auto;
+    width: 400px;
+  }
+}
+
+.search-trigger {
+  @include reset-input;
+  @include absolute(0 0 -1px x);
+  width: 70px;
+  color: $accent;
+  border-left: 1px solid $c-gray;
+
+  &:hover,
+  &:focus {
+    background: $accent;
+    border-color: $accent;
+    color: $c-white;
+  }
+}
+
+.nav-search-field {
+  @include reset-input;
+  @include absolute(0);
+  padding-left: 20px;
+  // @include size(100%)
+  font-family: inherit;
+  color: $c-black;
+}
+
+.nav-search-button {
+  @include reset-input;
+  @include absolute(0 0 0 x);
+  width: 70px;
+  background: $accent;
+  color: $c-white;
 }

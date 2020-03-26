@@ -288,13 +288,13 @@
     }
 
     .search-result {
+      border-bottom: 1px solid;
       a.folder {
         span {
           // background: #f0f0f0;
           // color: #483d8b;
           // padding: 3px 7px;
           // font-weight: 400;
-          background: $gray-80;
           color: #666;
           padding: 3px 6px;
           font-weight: 400;

@@ -7,23 +7,26 @@
 
   <nav>
     <% if (locals.topNav && locals.topNav.length) { %> <%
-    locals.topNav.forEach((item) => { %> <% if (item.prettyName === 'Homepage')
+      locals.topNav.forEach((item) => { %> <% if (item.prettyName === 'Homepage' || item.prettyName === 'Protocols')
     { %>
-    <a href="/">Home</a>
     <% } else { %>
     <a href="<%- item.path %>"><%- item.prettyName %></a>
     <% } %> <% }) %> <% } %>
+
+
   </nav>
+
+  <button class="search-trigger"><i class="fa fa-search"></i></button>
 
   <form method="GET" action="/search" class="nav-search-container">
     <input
       id="nav-search-box"
-      class="twitter-typeahead"
+      class="twitter-typeahead nav-search-field"
       type="text"
       name="q"
       value=""
       placeholder="Search..."
     />
-    <button class="icon"><i class="fa fa-search"></i></button>
+    <button class="icon nav-search-button"><i class="fa fa-search"></i></button>
   </form>
 </div>
