@@ -51,15 +51,52 @@ function normalizeHtml(html) {
       // REMARK: should we replace with <strong> and <em> eventually?
       const newStyle = elStyle.split(';').filter((styleRule) => {
         if (['img'].includes(el.tagName) && /width/.test(styleRule)) { return true }
-        return /font-style:italic|font-weight:700|vertical-align:super|text-decoration:underline/.test(styleRule)
+        return /font-style:italic|font-weight:700|vertical-align:sub|text-decoration:underline/.test(styleRule)
       }).join(';')
 
-      if (newStyle === 'vertical-align:super') {
-        $(el).removeAttr('style')
-        $(el).addClass('tooltip-content')
-        $(el).wrap('<span class="tooltip-wrapper"></span>')
-        $(el).before('<span class="tooltip-icon"></span>')
-        return el
+      // We use subscript for tooltips
+      if (newStyle.includes('vertical-align:sub')) {
+        const prev = el.previousSibling
+
+        let isFirst = false
+
+        // Make sure that only the first use per line is made into a tooltip.
+        if (prev) {
+          if ($(prev).attr('style') === undefined || ($(prev).attr('style') && $(prev).attr('style').includes('vertical-align:sub'))) {
+            if ($(prev).attr('class') === undefined || ($(prev).attr('class') && $(prev).attr('class').includes('tooltip-content'))) {
+              isFirst = true
+            }
+          }
+        }
+
+        if (isFirst) {
+          let next = el.nextSibling
+          while (next) {
+            const isLast = !$(next) || !$(next).attr('style') || !$(next).attr('style').includes('vertical-align:sub')
+            if (isLast) {
+              break
+            }
+
+            if (next.tagName === 'span') {
+              // Drop the extra span tags
+              next.children.forEach((child) => {
+                el.children.push(child)
+              })
+            } else {
+              el.children.push(next)
+            }
+
+            next = next.nextSibling
+          }
+
+          $(el).removeAttr('style')
+          $(el).addClass('tooltip-content')
+          $(el).wrap('<span class="tooltip-wrapper"></span>')
+          return el
+        } else {
+          $(el).remove()
+          return
+        }
       }
 
       if (newStyle.length > 0) {
