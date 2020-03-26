@@ -11,6 +11,10 @@ $(document).ready(function() {
     $body.removeClass("show-sidebar");
   });
 
+  $(".js--search-trigger").on("click", function() {
+    $body.toggleClass("show-search");
+  });
+
   $("pre").html(function(index, html) {
     return html
       .split(/\r?\n/)

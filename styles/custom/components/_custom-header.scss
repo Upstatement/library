@@ -4,6 +4,7 @@
 
 .masthead {
   background-color: $c-white;
+  z-index: 20;
 }
 
 .custom-header {
@@ -51,11 +52,33 @@
   height: 70px;
   border-bottom: 1px solid $c-gray;
   background: $c-white;
+  opacity: 0;
+  visibility: hidden;
 
   @include mq($md) {
     border-left: 1px solid $c-gray;
     left: auto;
     width: 400px;
+  }
+
+  .show-search & {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.show-search {
+  .search-trigger {
+    .fa-search {
+      &:before {
+        content: "\f00d";
+        color: $c-white;
+      }
+    }
+
+    .fa {
+      font-size: 18px;
+    }
   }
 }
 
@@ -72,6 +95,11 @@
     border-color: $accent;
     color: $c-white;
   }
+
+  .show-search & {
+    background: $accent;
+    border-color: $accent;
+  }
 }
 
 .nav-search-field {
@@ -87,6 +115,7 @@
   @include reset-input;
   @include absolute(0 0 0 x);
   width: 70px;
-  background: $accent;
-  color: $c-white;
+  background: $c-white;
+  border-left: 1px solid $c-gray;
+  color: $accent;
 }
