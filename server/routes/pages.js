@@ -6,7 +6,7 @@ const router = require('express-promise-router')()
 const {fetchDoc} = require('../docs')
 const {parseUrl} = require('../urlParser')
 
-const {getTopNav} = require('../navigation')
+const {getTopNav, getSideNav} = require('../navigation')
 
 const {getTree, getFilenames, getMeta, getTagged} = require('../list')
 const {getTemplates, sortDocs, stringTemplate, getConfig} = require('../utils')
@@ -32,6 +32,7 @@ async function handlePage(req, res) {
   if (!pages.has(page)) return 'next'
 
   const topNavigation = await getTopNav()
+  const sideNavigation = await getSideNav()
 
   const template = `pages/${page}`
   const {q, autocomplete} = req.query
@@ -111,7 +112,12 @@ async function handlePage(req, res) {
       })
     }
 
-    res.render(template, {...categories, template: stringTemplate, topNav: topNavigation})
+    res.render(template, {
+      ...categories,
+      template: stringTemplate,
+      topNav: topNavigation,
+      sideNav: sideNavigation
+    })
     return
   }
 

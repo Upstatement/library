@@ -1,6 +1,8 @@
 <div class="custom-header custom-header--has-sidebar">
   <span class="visually-hidden"><%- template('branding.org') %></span>
-  <img src=<%- template('branding.logo') %> class="custom-header__logo" alt="<%- template('branding.org') %>">
+  <a href="/">
+    <img src=<%- template('branding.logo') %> class="custom-header__logo" alt="<%- template('branding.org') %>">
+  </a>
 
   <nav>
     <% if (locals.topNav && locals.topNav.length) { %>

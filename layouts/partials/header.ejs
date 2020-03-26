@@ -2,8 +2,9 @@
   <div class="container">
     <%- include custom/customHeader %>
 
-    <% if (locals.sections && locals.sections.length) { %>
-    <!-- is this TOC -->
+    <%- locals.sideNav %>
+
+    <% if (locals.sideNav && locals.sideNav.length) { %>
       <%- include custom/customSidebar %>
     <% } %>
 

@@ -3,9 +3,18 @@ const {getTemplates, sortDocs, stringTemplate, getConfig} = require('./utils')
 
 async function getTopNav() {
   const tree = await getTree()
-
   return buildDisplayCategories(tree)
+}
 
+async function getSideNav() {
+  const tree = await getTree()
+  const navItems = tree.children.protocols.children
+
+  const asArray = Object.values(navItems).sort((a, b) => {
+    return parseInt(a.sort) - parseInt(b.sort)
+  })
+
+  return asArray
 }
 
 function buildDisplayCategories(tree) {
@@ -31,3 +40,4 @@ function buildDisplayCategories(tree) {
 }
 
 exports.getTopNav = getTopNav
+exports.getSideNav = getSideNav
