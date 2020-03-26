@@ -11,6 +11,7 @@
   align-items: center;
   border-bottom: 1px solid $c-gray;
   display: flex;
+  height: 80px;
   padding: 0 0 0 15px;
   position: relative;
 
@@ -23,7 +24,6 @@
   &--has-sidebar {
     @include mq($md) {
       padding-left: 250px + 15;
-      height: 70px;
     }
 
     @include mq($lg) {
@@ -55,7 +55,7 @@
 }
 
 .nav-search-container {
-  @include fixed(77px 0 x);
+  @include fixed(80px 0 x);
   height: 70px;
   border-bottom: 1px solid $c-gray;
   background: $c-white;
@@ -63,7 +63,6 @@
   visibility: hidden;
 
   @include mq($md) {
-    top: 70px;
     border-left: 1px solid $c-gray;
     left: auto;
     width: 400px;
