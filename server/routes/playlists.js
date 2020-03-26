@@ -62,11 +62,7 @@ function preparePlaylistOverview(playlistMeta, values, breadcrumb) {
   const renderData = Object.assign({}, contextData, {
     template: stringTemplate,
     url: playlistMeta.path,
-    title: playlistMeta.prettyName,
-    modifiedAt: playlistMeta.modifiedTime,
-    lastUpdatedBy: (playlistMeta.lastModifyingUser || {}).displayName,
-    createdAt: playlistMeta.createdTime,
-    editLink: playlistMeta.mimeType === 'text/html' ? playlistMeta.folder.webViewLink : playlistMeta.webViewLink
+    title: playlistMeta.prettyName
   })
 
   return renderData
@@ -96,8 +92,7 @@ async function preparePlaylistPage(data, url, parent) {
     .map((segment, i, arr) => {
       return {
         url: `/${arr.slice(0, i + 1).join('/')}`,
-        name: cleanName(breadcrumbInfo[i].name),
-        editLink: breadcrumbInfo[i].webViewLink
+        name: cleanName(breadcrumbInfo[i].name)
       }
     })
 
@@ -130,18 +125,16 @@ function prepareContextualData(playlistMeta, values, breadcrumb) {
     .map((segment, i, arr) => {
       return {
         url: `/${arr.slice(0, i + 1).join('/')}`,
-        name: cleanName(breadcrumbInfo[i].name),
-        editLink: breadcrumbInfo[i].webViewLink
+        name: cleanName(breadcrumbInfo[i].name)
       }
     })
 
   const children = values.map((docId) => {
-    const {prettyName, slug, mimeType, folder, webViewLink, resourceType} = getMeta(docId)
+    const {prettyName, slug, resourceType} = getMeta(docId)
     return {
       sort: prettyName,
       name: prettyName,
       url: `${path}/${slug}`,
-      editLink: mimeType === 'text/html' ? folder.webViewLink : webViewLink,
       resourceType: resourceType
     }
   })

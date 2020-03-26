@@ -61,69 +61,33 @@ async function handlePage(req, res) {
     const tree = await getTree()
     const categories = buildDisplayCategories(tree)
 
+    let pageUrl = req.path
+
     if (page === 'index') {
-      const {meta, data} = await parseUrl('/homepage')
-      const {id} = meta
-      const {duplicates} = data
-
-      const baseRenderData = Object.assign({}, {
-        url: req.path,
-        title: meta.prettyName,
-        lastUpdatedBy: (meta.lastModifyingUser || {}).displayName,
-        modifiedAt: meta.modifiedTime,
-        createdAt: meta.createdTime,
-        editLink: meta.mimeType === 'text/html' ? meta.folder.webViewLink : meta.webViewLink,
-        id,
-        template: stringTemplate,
-        duplicates
-      })
-
-      const content = await getPageContent(page, tree, req)
-
-      res.render(template, Object.assign({}, categories, baseRenderData, {
-        content: content,
-        topNav: topNavigation,
-        sideNav: sideNavigation
-      }), (err, html) => {
-        if (err) throw err
-        res.end(html)
-      })
+      pageUrl = '/homepage'
     }
 
-    if (page === 'about') {
-      const {meta, data} = await parseUrl(req.path)
-      const {id} = meta
-      const {duplicates} = data
+    const {meta, data} = await parseUrl(pageUrl)
+    const {id} = meta
+    const {duplicates} = data
 
-      const baseRenderData = Object.assign({}, {
-        url: req.path,
-        title: meta.prettyName,
-        lastUpdatedBy: (meta.lastModifyingUser || {}).displayName,
-        modifiedAt: meta.modifiedTime,
-        createdAt: meta.createdTime,
-        editLink: meta.mimeType === 'text/html' ? meta.folder.webViewLink : meta.webViewLink,
-        id,
-        template: stringTemplate,
-        duplicates
-      })
-
-      const content = await getPageContent(page, tree, req)
-
-      res.render(template, Object.assign({}, categories, baseRenderData, {
-        content: content,
-        topNav: topNavigation,
-        sideNav: sideNavigation
-      }), (err, html) => {
-        if (err) throw err
-        res.end(html)
-      })
-    }
-
-    res.render(template, {
-      ...categories,
+    const baseRenderData = Object.assign({}, {
+      url: req.path,
+      title: meta.prettyName,
+      id,
       template: stringTemplate,
+      duplicates
+    })
+
+    const content = await getPageContent(page, tree, req)
+
+    res.render(template, Object.assign({}, categories, baseRenderData, {
+      content: content,
       topNav: topNavigation,
       sideNav: sideNavigation
+    }), (err, html) => {
+      if (err) throw err
+      res.end(html)
     })
     return
   }

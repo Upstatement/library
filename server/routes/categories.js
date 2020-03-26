@@ -41,10 +41,6 @@ async function handleCategory(req, res) {
   const baseRenderData = Object.assign({}, contextData, {
     url: req.path,
     title: meta.prettyName,
-    lastUpdatedBy: (meta.lastModifyingUser || {}).displayName,
-    modifiedAt: meta.modifiedTime,
-    createdAt: meta.createdTime,
-    editLink: meta.mimeType === 'text/html' ? meta.folder.webViewLink : meta.webViewLink,
     id,
     template: stringTemplate,
     duplicates
@@ -97,8 +93,7 @@ function prepareContextualData(data, url, breadcrumb, parent, slug) {
     .map((segment, i, arr) => {
       return {
         url: `/${arr.slice(0, i + 1).join('/')}`,
-        name: cleanName(breadcrumbInfo[i].name),
-        editLink: breadcrumbInfo[i].webViewLink
+        name: cleanName(breadcrumbInfo[i].name)
       }
     })
 
@@ -116,11 +111,10 @@ function createRelatedList(slugs, self, baseUrl) {
     .filter((slug) => slug !== self)
     .map((slug) => {
       const {id} = slugs[slug]
-      const {sort, prettyName, webViewLink, path: url, resourceType, tags} = getMeta(id)
+      const {sort, prettyName, path: url, resourceType, tags} = getMeta(id)
       return {
         sort,
         name: prettyName,
-        editLink: webViewLink,
         resourceType,
         url,
         tags

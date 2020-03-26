@@ -6,14 +6,13 @@
   </a>
 
   <nav>
-    <% if (locals.topNav && locals.topNav.length) { %> <%
-      locals.topNav.forEach((item) => { %> <% if (item.prettyName === 'Homepage' || item.prettyName === 'Protocols')
-    { %>
-    <% } else { %>
-    <a href="<%- item.path %>"><%- item.prettyName %></a>
-    <% } %> <% }) %> <% } %>
-
-
+    <% if (locals.topNav && locals.topNav.length) { %>
+      <% locals.topNav.forEach((item) => { %>
+        <% if (item.prettyName !== 'Homepage' && item.prettyName !== 'Protocols') { %>
+          <a href="<%- item.path %>"><%- item.prettyName %></a>
+        <% } %>
+      <% }) %>
+    <% } %>
   </nav>
 
   <button class="search-trigger js--search-trigger"><i class="fa fa-search"></i></button>
