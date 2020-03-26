@@ -122,7 +122,6 @@ async function handlePage(req, res) {
 
   res.render(template, {template: stringTemplate, topNav: topNavigation})
 }
-}
 
 async function getPageContent(page, tree, req) {
   const categories = Object.keys(tree.children).map((key) => {
