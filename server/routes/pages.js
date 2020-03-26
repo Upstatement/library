@@ -45,7 +45,13 @@ async function handlePage(req, res) {
         if (exactMatches.length === 1) return res.redirect(exactMatches[0].path)
       }
 
-      res.render(template, {q, results, template: stringTemplate, topNav: topNavigation})
+      res.render(template, {
+        q,
+        results,
+        template: stringTemplate,
+        topNav: topNavigation,
+        sideNav: sideNavigation
+      })
     })
   }
 
@@ -76,7 +82,8 @@ async function handlePage(req, res) {
 
       res.render(template, Object.assign({}, categories, baseRenderData, {
         content: content,
-        topNav: topNavigation
+        topNav: topNavigation,
+        sideNav: sideNavigation
       }), (err, html) => {
         if (err) throw err
         res.end(html)
@@ -104,7 +111,8 @@ async function handlePage(req, res) {
 
       res.render(template, Object.assign({}, categories, baseRenderData, {
         content: content,
-        topNav: topNavigation
+        topNav: topNavigation,
+        sideNav: sideNavigation
       }), (err, html) => {
         if (err) throw err
         res.end(html)
@@ -120,7 +128,11 @@ async function handlePage(req, res) {
     return
   }
 
-  res.render(template, {template: stringTemplate, topNav: topNavigation})
+  res.render(template, {
+    template: stringTemplate,
+    topNav: topNavigation,
+    sideNav: sideNavigation
+  })
 }
 
 async function getPageContent(page, tree, req) {
