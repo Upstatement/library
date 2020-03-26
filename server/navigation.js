@@ -1,5 +1,5 @@
-const {getTree, getFilenames, getMeta, getTagged} = require('./list')
-const {getTemplates, sortDocs, stringTemplate, getConfig} = require('./utils')
+const {getTree, getMeta} = require('./list')
+const {sortDocs} = require('./utils')
 
 async function getTopNav() {
   const tree = await getTree()
