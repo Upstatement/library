@@ -50,6 +50,10 @@
 
   @include mq($md) {
     height: 80px;
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     border-bottom: 1px solid rgba($c-white, 0.3);
   }
 }

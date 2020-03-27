@@ -1,4 +1,3 @@
-
 // Top Banner
 //------------------------------------------------------------------------------
 .masthead {
@@ -21,14 +20,9 @@
 .search-container {
   vertical-align: middle;
   white-space: nowrap;
-
-  @include tablet{
-    width: calc(100% - 20px);
-  }
-  @include desktop{
-    width: calc(100% - 20px);
-  }
-
+  height: 70px;
+  margin-bottom: 50px;
+  position: relative;
 
   .tt-menu {
     background-color: inherit;
@@ -40,93 +34,43 @@
     left: -1px !important;
   }
 
-  .tt-suggestion {
-    padding: 10px 15px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    cursor: pointer;
-
-    &:hover {
-      background-color: $accent-light;
-    }
-  }
-
-  .tt-cursor {
-    background-color: $accent-light;
-  }
-
   .twitter-typeahead {
     font-style: normal;
     font-family: $font-sans;
-    font-size: 16px;
-    line-height: 30px;
+    font-size: inherit;
     font-weight: 400;
     position: relative;
-    width: calc(100% - 65px);
-    height: 50px;
+    height: 70px;
+    width: 100%;
     transition: background-color 0.3s;
     display: inline-block;
     border: 1px solid $gray-40;
     background: $white;
-    -webkit-box-shadow: 5px 5px 0px 0px $gray-25;;
-    -moz-box-shadow: 5px 5px 0px 0px $gray-25;;
-    box-shadow: 5px 5px 0px 0px $gray-25;;
     color: $black;
     float: left;
-    width: calc(100% - 20px);
-    -webkit-transition: background .55s ease;
-    -moz-transition: background .55s ease;
-    -ms-transition: background .55s ease;
-    -o-transition: background .55s ease;
-    transition: background .55s ease;
     padding-left: 15px;
-    -webkit-font-smoothing: antialiased;
 
     &:hover,
     &:focus,
     &:active {
       outline: none;
-      background:  $accent-lightest;
-    }
-
-
-    .tt-hint {
-      color: $gray-30;
-      background-color: transparent !important;
-      outline: none;
-      border: none;
-      -webkit-appearance: none;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    // to account for case where typeahead fails to load
-    .twitter-typeahead.tt-input {
-      box-shadow: none;
-      border: none;
-      padding-left: 0;
+      border-color: $accent;
     }
   }
 
-
-  .icon{
-    position: relative;
+  .icon {
+    position: absolute;
     z-index: 10;
     border: none;
     background: $accent;
-    height: 50px;
-    width: 50px;
-    top: 1px; // compensate for top border
-    right: 1px; // compensate for right border
+    height: 70px;
+    width: 70px;
+    top: 0; // compensate for top border
+    right: 0; // compensate for right border
     color: $white;
     opacity: 1;
     font-size: 12pt;
     cursor: pointer;
-    margin-left: -50px;
-    -webkit-transition: opacity .35s ease;
-    -moz-transition: opacity .35s ease;
-    -ms-transition: opacity .35s ease;
-    -o-transition: opacity .35s ease;
-    transition: opacity .35s ease;
   }
 
   &:hover {
@@ -137,13 +81,13 @@
 
   input::-webkit-input-placeholder,
   input:-moz-placeholder,
-  input:-ms-input-placeholder  {
+  input:-ms-input-placeholder {
     color: $gray-45;
   }
   input:focus::-webkit-input-placeholder,
   input:focus:-moz-placeholder,
-  input:focus:-ms-input-placeholder  {
-    opacity: 0
+  input:focus:-ms-input-placeholder {
+    opacity: 0;
   }
 }
 
