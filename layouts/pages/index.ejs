@@ -1,35 +1,43 @@
 <!DOCTYPE html>
 <html>
-  <%- include('../partials/head', {title: template('branding.prettyName')}) %>
+  <%- include ../partials/head %>
   <body>
+    <%- include('../partials/header', {title: template('branding.longName')}) %>
 
-    <header id="masthead" class="masthead" role="banner">
-      <div class="container">
-        <%- include ../partials/userTools %>
-      </div>
-    </header>
+    <main id="categories-page" class="site-page">
+      <div class="page-inner">
+        <div class="page-width">
+          <div class="content__width g-upper-body">
+            <h1 class="headline"><%- template('branding.longName') %></h1>
+          </div>
+          <div class="g-body">
+            <div class="g-main-content">
+              <div class="content__width">
+                <%- include('../partials/search', {
+                  style: 'homepage',
+                  focus: 'autofocus',
+                  msgOnFocus: template('search.placeholder')
+                }) %>
 
-    <div id="main-search-page">
-      <div class="main-item">
-        <%- include('../partials/branding', {context: 'home'}) %>
-        <div class="tagline">
-          <p><%- template('landing.tagline') %> <%- template('landing.quickLink') %></p>
+                <% if (locals.content) { %>
+                  <%- content %> <% } %>
+
+                  <% if (locals.children && children.length) { %>
+                    <%- include('../partials/childrenList', {
+                      children, kicker:
+                      template('folder.childrenList.kicker', title)
+                    }) %>
+                  <% } %>
+              </div>
+            </div>
+
+            <%- include('../partials/footer', {
+              pageType: 'document',
+              topLevelFolder: url.split('/')[1]
+            }) %>
+          </div>
         </div>
-        <%- include('../partials/search', {style: 'homepage', focus: 'autofocus', msgOnFocus: template('search.placeholder')}) %>
-
-        <div class="featured-cat">
-          <% if (modules.length) { 
-            modules.forEach((module, i, all) => {
-          %>
-            <%- include('../partials/landingModule', module) %>
-          <%  })  
-          } else { %>
-          <!-- Eventually we might display a warning here about why this space is empty. -->
-          <% } %>
-        </div>
-
       </div>
-      <%- include('../partials/footer', {style: 'homepage', pageType: 'homepage'}) %>
-    </div>
+    </main>
   </body>
 </html>

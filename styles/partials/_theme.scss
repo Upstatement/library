@@ -1,11 +1,11 @@
 // Fonts
 //------------------------------------------------------------------------------
 // Font imports
-@import url('https://fonts.googleapis.com/css?family=Alfa+Slab+One|Open+Sans:400,400i,700,700i&subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese');
+@import "../custom/base/variables";
 
-$font-branding: 'Alfa Slab One', cursive;
-$font-headline: 'Open Sans', sans-serif;
-$font-sans: 'Open Sans', sans-serif;
+$font-branding: $ff-main;
+$font-headline: $ff-main;
+$font-sans: $ff-main;
 
 // Colors
 //------------------------------------------------------------------------------

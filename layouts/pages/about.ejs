@@ -14,15 +14,14 @@
             <div class="g-main-content">
               <div class="content__width">
                 <% if (locals.content) { %>
-                  <%- content %>
-                <% } %>
+                  <%- content %> <% } %>
 
-                <% if (locals.children && children.length) { %>
-                  <%- include('../partials/childrenList', {
-                    children, kicker:
-                    template('folder.childrenList.kicker', title)
-                  }) %>
-                <% } %>
+                  <% if (locals.children && children.length) { %>
+                    <%- include('../partials/childrenList', {
+                      children,
+                      kicker: template('folder.childrenList.kicker', title)
+                    }) %>
+                  <% } %>
               </div>
             </div>
 

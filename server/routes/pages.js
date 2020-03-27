@@ -3,6 +3,10 @@
 const search = require('../search')
 
 const router = require('express-promise-router')()
+const {fetchDoc} = require('../docs')
+const {parseUrl} = require('../urlParser')
+
+const {getTopNav, getSideNav} = require('../navigation')
 
 const {getTree, getFilenames, getMeta, getTagged} = require('../list')
 const {getTemplates, sortDocs, stringTemplate, getConfig} = require('../utils')
@@ -27,6 +31,9 @@ async function handlePage(req, res) {
   const page = req.params.page || 'index'
   if (!pages.has(page)) return 'next'
 
+  const topNavigation = await getTopNav()
+  const sideNavigation = await getSideNav()
+
   const template = `pages/${page}`
   const {q, autocomplete} = req.query
   if (page === 'search' && q) {
@@ -38,21 +45,95 @@ async function handlePage(req, res) {
         if (exactMatches.length === 1) return res.redirect(exactMatches[0].path)
       }
 
-      res.render(template, {q, results, template: stringTemplate})
+      res.render(template, {
+        q,
+        results,
+        template: stringTemplate,
+        topNav: topNavigation,
+        sideNav: sideNavigation
+      })
     })
   }
 
   // TODO: repurpose old getFolders/folder view from move-file as tree view for files
 
-  if (page === 'categories' || page === 'index') {
+  if (page === 'categories' || page === 'index' || page === 'about') {
     const tree = await getTree()
     const categories = buildDisplayCategories(tree)
-    res.render(template, {...categories, template: stringTemplate})
+
+    let pageUrl = req.path
+
+    if (page === 'index') {
+      pageUrl = '/homepage'
+    }
+
+    const {meta, data} = await parseUrl(pageUrl)
+    const {id} = meta
+    const {duplicates} = data
+
+    const baseRenderData = Object.assign({}, {
+      url: req.path,
+      title: meta.prettyName,
+      id,
+      template: stringTemplate,
+      duplicates
+    })
+
+    const content = await getPageContent(page, tree, req)
+
+    res.render(template, Object.assign({}, categories, baseRenderData, {
+      content: content,
+      topNav: topNavigation,
+      sideNav: sideNavigation
+    }), (err, html) => {
+      if (err) throw err
+      res.end(html)
+    })
     return
   }
 
-  res.render(template, {template: stringTemplate})
+  res.render(template, {
+    template: stringTemplate,
+    topNav: topNavigation,
+    sideNav: sideNavigation
+  })
 }
+
+async function getPageContent(page, tree, req) {
+  const categories = Object.keys(tree.children).map((key) => {
+    const data = tree.children[key]
+    data.path = `/${key}` // for now
+    return data
+  })
+
+  const all = categories
+  .map((c) => Object.assign({}, c, getMeta(c.id)))
+  .filter(({resourceType, tags, isTrashCan}) => resourceType !== 'folder' && !tags.includes('hidden') && !isTrashCan)
+  .sort(sortDocs)
+  .map((category) => {
+    category.children = Object.values(category.children || {}).map(({id}) => {
+      const {prettyName: name, path: url, resourceType, sort, tags} = getMeta(id)
+      return {name, resourceType, url, sort, tags}
+    })
+      .filter(({tags}) => !tags.includes('hidden'))
+      .sort(sortDocs)
+    return category
+  })
+
+  if (page === 'index') {
+    page = 'homepage'
+  }
+
+  const thisPage = all.filter((filterpage) => filterpage.path === `/${page}`)
+
+  if (thisPage.length) {
+    const pageToUse = thisPage[0]
+    const {html} = await fetchDoc(pageToUse.id, pageToUse.resourceType, req)
+    return html
+  }
+
+  return ''
+};
 
 function buildDisplayCategories(tree) {
   const categories = Object.keys(tree.children).map((key) => {

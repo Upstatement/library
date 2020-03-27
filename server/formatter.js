@@ -43,6 +43,8 @@ function normalizeHtml(html) {
   // as well as inline comment references
   $('sup').has('a[id^=cmnt]').remove()
 
+  let itemArray = []
+
   $('body *').map((idx, el) => {
     // Filter the style attr on each element
     const elStyle = $(el).attr('style')
@@ -51,8 +53,51 @@ function normalizeHtml(html) {
       // REMARK: should we replace with <strong> and <em> eventually?
       const newStyle = elStyle.split(';').filter((styleRule) => {
         if (['img'].includes(el.tagName) && /width/.test(styleRule)) { return true }
-        return /font-style:italic|font-weight:700|text-decoration:underline/.test(styleRule)
+        return /font-style:italic|font-weight:700|vertical-align:sub|vertical-align:super|text-decoration:line-through|text-decoration:underline/.test(styleRule)
       }).join(';')
+
+      // We use strkethrough for tooltips
+      if (newStyle.includes('line-through')) {
+        const prev = el.previousSibling
+        const next = el.nextSibling
+
+        let isLast = false
+        if (!next || $(next).attr('style') === undefined || ($(next).attr('style') && !$(next).attr('style').includes('line-through'))) {
+          isLast = true
+        }
+
+        let isFirst = false
+        if (!prev || $(prev).attr('style') === undefined || ($(prev).attr('style') && !$(prev).attr('style').includes('line-through'))) {
+          isFirst = true
+        }
+
+        if (!isLast) {
+          itemArray.push(el)
+          $(el).remove()
+          return
+        } else {
+          if (isFirst && isLast) {
+            itemArray.push(el)
+          }
+
+          $(el).after('<span class="tooltip-wrapper"><span class="tooltip-content"></span></span>')
+
+          const children = itemArray.map((child) => {
+            if ($(child).attr('style') && $(child).attr('style').includes('line-through')) {
+              $(child).attr('style', $(child).attr('style').replace('text-decoration:line-through;', '').replace('text-decoration:line-through', '').replace('line-through', ''))
+              if (!$(child).attr('style').length) {
+                $(child).removeAttr('style')
+              }
+            }
+            return child
+          })
+
+          el.nextSibling.children[0].children = children
+          $(el).remove()
+          itemArray = []
+          return
+        }
+      }
 
       if (newStyle.length > 0) {
         $(el).attr('style', newStyle)
@@ -78,6 +123,9 @@ function normalizeHtml(html) {
 
     // Google HTML wraps links in a google.com redirector, extract the original link at set this as an href
     if (el.tagName === 'a' && $(el).attr('href')) {
+      $(el).attr('rel', 'noopener noreferrer')
+      $(el).attr('target', '_blank')
+
       const [isRedirected, redirectUrl] = $(el).attr('href').match('https://www.google.com/url\\?q=(.+)&sa=') || []
       if (!isRedirected) return el
 

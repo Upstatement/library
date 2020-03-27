@@ -1,0 +1,41 @@
+// ---------------------------------------------------------------------------
+// HTML & Body
+// ---------------------------------------------------------------------------
+
+html {
+  color: $c-black;
+  font-size: 16px;
+  line-height: 1.2;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100%;
+  text-size-adjust: 100%;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100%;
+  font-family: $ff-main;
+  box-sizing: border-box;
+  position: relative;
+}
+
+// ---------------------------------------------------------------------------
+// Defaults
+// ---------------------------------------------------------------------------
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+// ---------------------------------------------------------------------------
+// Text highlight
+// ---------------------------------------------------------------------------
+
+::selection {
+  background: $accent;
+  color: $c-white;
+  text-shadow: none;
+}
