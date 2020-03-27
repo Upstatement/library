@@ -11,11 +11,7 @@
   <ul class="custom-sidebar__mobile-list">
     <% if (locals.topNav && locals.topNav.length) { %>
       <% locals.topNav.forEach((item) => { %>
-        <% if (item.prettyName === 'Homepage') { %>
-          <li class="custom-sidebar__mobile-list-item">
-            <a class="custom-sidebar__mobile-link" href="/">Home</a>
-          </li>
-        <% } else { %>
+        <% if (item.prettyName !== 'Homepage' && item.prettyName !== 'Protocols') { %>
           <li class="custom-sidebar__mobile-list-item">
             <a class="custom-sidebar__mobile-link" href="<%- item.path %>"><%- item.prettyName %></a>
           </li>
@@ -45,7 +41,7 @@
                   <ul class="custom-sidebar__sub-list">
                     <% sections.forEach((section) => { %>
                     <li class="custom-sidebar__sub-list-item">
-                      <a href="<%- section.url %>" class="custom-sidebar__link">
+                      <a href="<%- section.url %>" class="custom-sidebar__link js--mobile-close-trigger">
                         <%= section.name %>
                       </a>
                     </li>
